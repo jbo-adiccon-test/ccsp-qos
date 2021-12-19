@@ -18,6 +18,9 @@
 
   It's possible to remove QoS_config_current.json file and restart the ccsp_qos to restore the data model to the default state.
 
+We will use "cake" with diffserv3 instead of htb prioritiy queueing.
+e.g. tc qdisc add dev erouter0 root cake bandwidth 40Mbit overhead 0 mpu 0 diffserv4
+
 
  Data model usage
 -----------------------------------------------------------------
@@ -47,18 +50,13 @@
   > dmcli eRT setv Device.QoS.Classification.1.Enable bool true
 
 * Add new queue and set parameters example:
+* Since we used "cake" as queueing discipline, we only need to add single Queue and specify Interface and ShapingRate
 
   > dmcli eRT addtable Device.QoS.Queue.
 
   > dmcli eRT setv Device.QoS.Queue.1.Interface string "erouter0"
-
-  > dmcli eRT setv Device.QoS.Queue.1.SchedulerAlgorithm string "SP"
-
-  > dmcli eRT setv Device.QoS.Queue.1.Precedence uint 5
-
-  > dmcli eRT setv Device.QoS.Queue.1.TrafficClasses string "10"
-
-  > dmcli eRT setv Device.QoS.Queue.1.ShapingRate int -1
+  
+  > dmcli eRT setv Device.QoS.Queue.1.ShapingRate int 25
 
   > dmcli eRT setv Device.QoS.Queue.1.Enable bool true
 
@@ -109,7 +107,7 @@
                           upon the EthernetPriority
 
     TrafficClass        - Classification result. Identifier of the traffic class associated with traffic that falls in this 
-                          classification. Should be the same as Precedence of corresponding Queue
+                          classification. Should be the same as Precedence of corresponding Queue; not applicable with cake as queueing discipline
 
     ChainName           - Chain: PREROUTING, INPUT, FORWARD, OUTPUT, POSTROUTING
 
