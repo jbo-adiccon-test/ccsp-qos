@@ -531,6 +531,14 @@ Classification_GetParamIntValue
         *pInt = pDmClsEntry->TcpPsh;
         ret = TRUE;
     }
+
+    //Add own test output
+    else if( AnscEqualString(pParamName, "TestSampleParam", TRUE) )
+    {
+        printf("\n \n Das ist eine Test ausgabe... \n \n")
+        ret = TRUE;
+    }
+
     else
     {
         printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);

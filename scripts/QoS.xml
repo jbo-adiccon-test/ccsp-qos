@@ -38,6 +38,12 @@
               <writable>true</writable>
             </parameter>
             <parameter>
+              <name>TestSampleParam</name>
+              <type>string(64)</type>
+              <syntax>string</syntax>
+              <writable>true</writable>
+            </parameter>
+            <parameter>
               <name>TrafficClasses</name>
               <type>string(256)</type>
               <syntax>string</syntax>
