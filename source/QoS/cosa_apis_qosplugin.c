@@ -286,7 +286,6 @@ Classification_GetParamStringValue
     else if( AnscEqualString(pParamName, "TestSampleParam", TRUE) )
     {
         printf("\n \n Das ist eine Test ausgabe... \n \n");
-        ret = TRUE;
     }
 
 
