@@ -535,7 +535,7 @@ Classification_GetParamIntValue
     //Add own test output
     else if( AnscEqualString(pParamName, "TestSampleParam", TRUE) )
     {
-        printf("\n \n Das ist eine Test ausgabe... \n \n")
+        printf("\n \n Das ist eine Test ausgabe... \n \n");
         ret = TRUE;
     }
 
