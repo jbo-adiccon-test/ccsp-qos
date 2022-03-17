@@ -280,6 +280,16 @@ Classification_GetParamStringValue
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->DestIP);
         AnscCopyString(pValue, pDmClsEntry->DestIP);
     }
+
+
+    //Add own test output
+    else if( AnscEqualString(pParamName, "TestSampleParam", TRUE) )
+    {
+        printf("\n \n Das ist eine Test ausgabe... \n \n");
+        ret = TRUE;
+    }
+
+
     else if( AnscEqualString(pParamName, DM_CLF_DestMask, TRUE) )
     {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->DestMask);
@@ -529,13 +539,6 @@ Classification_GetParamIntValue
     else if( AnscEqualString(pParamName, DM_CLF_TcpPsh, TRUE) )
     {
         *pInt = pDmClsEntry->TcpPsh;
-        ret = TRUE;
-    }
-
-    //Add own test output
-    else if( AnscEqualString(pParamName, "TestSampleParam", TRUE) )
-    {
-        printf("\n \n Das ist eine Test ausgabe... \n \n");
         ret = TRUE;
     }
 
