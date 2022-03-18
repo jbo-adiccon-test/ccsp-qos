@@ -281,14 +281,6 @@ Classification_GetParamStringValue
         AnscCopyString(pValue, pDmClsEntry->DestIP);
     }
 
-
-    //Add own test output
-    else if( AnscEqualString(pParamName, "TestSampleParam", TRUE) )
-    {
-        printf("\n \n Das ist eine Test ausgabe... \n \n");
-    }
-
-
     else if( AnscEqualString(pParamName, DM_CLF_DestMask, TRUE) )
     {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->DestMask);
@@ -1221,6 +1213,15 @@ Queue_GetParamStringValue
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmQueueEntry->TrafficClasses);
         AnscCopyString(pValue, pDmQueueEntry->TrafficClasses);
     }
+
+
+        //Add own test output
+    else if( AnscEqualString(pParamName, "TestSampleParam", TRUE) )
+    {
+        printf("\n \n Das ist eine Test ausgabe... \n \n");
+    }
+
+
     else if( AnscEqualString(pParamName, DM_QUEUE_Interface, TRUE) )
     {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmQueueEntry->Interface);
