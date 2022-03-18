@@ -27,6 +27,8 @@
 #include "qos_dm_api.h"
 #include "qos_dm_load.h"
 
+static int testval = 0;
+
 /**********************************************************************
 
     caller:     owner of this object
@@ -1213,16 +1215,7 @@ Queue_GetParamStringValue
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmQueueEntry->TrafficClasses);
         AnscCopyString(pValue, pDmQueueEntry->TrafficClasses);
     }
-
-
-        //Add own test output
-    else if( AnscEqualString(pParamName, "TestSampleParam", TRUE) )
-    {
-        printf("\n \n Das ist eine Test ausgabe... \n \n");
-    }
-
-
-    else if( AnscEqualString(pParamName, DM_QUEUE_Interface, TRUE) )
+   else if( AnscEqualString(pParamName, DM_QUEUE_Interface, TRUE) )
     {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmQueueEntry->Interface);
         AnscCopyString(pValue, pDmQueueEntry->Interface);
@@ -1439,6 +1432,15 @@ Queue_GetParamIntValue
         *pInt = pDmQueueEntry->ShapingRate;
         ret = TRUE;
     }
+
+        //Add own test output
+    else if( AnscEqualString(pParamName, "TestParam", TRUE) )
+    {
+        *pInt = testval;
+        ret = TRUE;
+    }
+
+
     else
     {
         printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
@@ -1723,9 +1725,19 @@ Queue_SetParamIntValue
         pDmQueueEntry->ShapingRate = iValue;
         ret = TRUE;
     }
+
+
+        //Add own test output
+    else if( AnscEqualString(pParamName, "TestParam", TRUE) )
+    {
+        testval = iValue;
+        ret = TRUE;
+    }
+
+
     else
     {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+        printf("%s: Unsupported parameter Huhaha Darkness comes '%s'\n", __func__,pParamName);
     }
 
     return ret;

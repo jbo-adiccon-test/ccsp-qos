@@ -38,9 +38,9 @@
               <writable>true</writable>
             </parameter>
             <parameter>
-              <name>TestSampleParam</name>
-              <type>string(64)</type>
-              <syntax>string</syntax>
+              <name>TestParam</name>
+              <type>int[-1:65535]</type>
+              <syntax>uint32</syntax>
               <writable>true</writable>
             </parameter>
             <parameter>
