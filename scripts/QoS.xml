@@ -40,7 +40,7 @@
             <parameter>
               <name>TestParam</name>
               <type>int[-1:65535]</type>
-              <syntax>uint32</syntax>
+              <syntax>int</syntax>
               <writable>true</writable>
             </parameter>
             <parameter>
