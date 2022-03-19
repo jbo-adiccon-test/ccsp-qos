@@ -301,7 +301,7 @@ void fill_qos_class(qos_class_t *pHalClf, const Classification_t *pClf, ulong id
     strncpy(pHalClf->iface_out, pClf->IfaceOut, sizeof(pHalClf->iface_out));
     pHalClf->tcp_flags = pClf->TcpFlags;
     pHalClf->tcp_psh = pClf->TcpPsh;
-    pHalClf->alias = pClf->Alias;
+    strncpy(pHalClf->alias, pClf->Alias, sizeof(pHalClf->alias));
 }
 
 int apply_qos_class(Classification_t *pClf)
