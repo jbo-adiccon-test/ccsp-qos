@@ -88,7 +88,7 @@ typedef struct {
     INT TcpPsh;
 
     //Add Alias to type abstraction
-    CHAR Alias[255]
+    CHAR Alias[255];
 
     // Service member
     ULONG srv_instanceNumber;
