@@ -612,7 +612,7 @@ Classification_SetParamStringValue
     //Add Alias from TR-181
     else if ( AnscEqualString(pParamName, DM_CLF_Alias, TRUE) )
     {
-        AnscEqualString(pDmClsEntry->Alias, pString);
+        AnscCopyString(pDmClsEntry->Alias, pString);
         ret = TRUE;
     }
     else if( AnscEqualString(pParamName, DM_CLF_DestMask, TRUE) )
