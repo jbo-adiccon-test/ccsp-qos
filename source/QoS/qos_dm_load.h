@@ -69,6 +69,9 @@ typedef union {
 #define DM_CLF_TcpFlags             "TcpFlags"
 #define DM_CLF_TcpPsh               "TcpPsh"
 
+//Add own Alias out of TR-181
+#define DM_CLF_Alias                "Alias"
+
 int32_t qos_DmLoadDefaults(void);
 
 bool qos_DmSave(const char *pTableName, uint32_t entryIdx, const char *pValueName, Value_t *pParam);

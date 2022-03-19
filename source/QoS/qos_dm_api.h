@@ -87,6 +87,9 @@ typedef struct {
     INT TcpFlags;
     INT TcpPsh;
 
+    //Add Alias to type abstraction
+    CHAR Alias[255]
+
     // Service member
     ULONG srv_instanceNumber;
 } Classification_t;

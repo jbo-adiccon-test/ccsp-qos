@@ -283,6 +283,13 @@ Classification_GetParamStringValue
         AnscCopyString(pValue, pDmClsEntry->DestIP);
     }
 
+    //Add Alias Param out of TR-181
+    else if( AnscEqualString(pParamName, DM_CLF_Alias, TRUE) )
+    {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Alias);
+        AnscCopyString(pValue, pDmClsEntry->Alias);
+    }
+
     else if( AnscEqualString(pParamName, DM_CLF_DestMask, TRUE) )
     {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->DestMask);
@@ -600,6 +607,12 @@ Classification_SetParamStringValue
     if( AnscEqualString(pParamName, DM_CLF_DestIP, TRUE) )
     {
         AnscCopyString(pDmClsEntry->DestIP, pString);
+        ret = TRUE;
+    }
+    //Add Alias from TR-181
+    else if ( AnscEqualString(pParamName, DM_CLF_Alias, TRUE) )
+    {
+        AnscEqualString(pDmClsEntry->Alias, pString);
         ret = TRUE;
     }
     else if( AnscEqualString(pParamName, DM_CLF_DestMask, TRUE) )

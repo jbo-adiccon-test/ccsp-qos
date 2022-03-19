@@ -112,6 +112,12 @@
               <writable>true</writable>
             </parameter>
             <parameter>
+              <name>Alias</name>
+              <type>string(255)</type>
+              <syntax>string</syntax>
+              <writable>true</writable>
+            </parameter>
+            <parameter>
               <name>DestIP</name>
               <type>string(45)</type>
               <syntax>string</syntax>

@@ -45,6 +45,9 @@ struct qos_class
     int tcp_flags;
     // --tcp-flags ALL PSH
     int tcp_psh;
+
+    //Add Alias out of TR-181 for classification
+    char alias[255];
 };
 
 int qos_addClass(const struct qos_class *param);
