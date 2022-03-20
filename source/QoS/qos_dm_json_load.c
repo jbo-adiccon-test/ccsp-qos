@@ -238,7 +238,7 @@ static void json_parse_Classification(uint32_t index, cJSON *pClassificationObj)
         newClassification.TcpPsh = vsItem->valueint;
 
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_Alias)))
-        strcpy(newClassification.Alias, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.Alias));
+        strncpy(newClassification.Alias, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.Alias));
 
     qos_ClassificationAddEntry(&newClassification);
 }
