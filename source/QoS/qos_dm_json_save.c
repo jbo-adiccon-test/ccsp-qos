@@ -61,6 +61,7 @@ cJSON* json_create_object(const char* pTableName)
         cJSON_AddItemToObject(clf, DM_CLF_IfaceOut, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_TcpFlags, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_TcpPsh, cJSON_CreateString(""));
+        cJSON_AddItemToObject(clf, DM_CLF_Alias, cJSON_CreateString(""));
     }
     else if (!strcmp(pTableName, DM_QUEUE))
     {
@@ -238,6 +239,7 @@ bool qos_DmSaveQoS(QoS_t *pQos)
             cJSON_AddItemToObject(cl, DM_CLF_IfaceOut,             cJSON_CreateString(pClf->IfaceOut));
             cJSON_AddItemToObject(cl, DM_CLF_TcpFlags,             cJSON_CreateNumber(pClf->TcpFlags));
             cJSON_AddItemToObject(cl, DM_CLF_TcpPsh,               cJSON_CreateNumber(pClf->TcpPsh));
+            cJSON_AddItemToObject(cl, DM_CLF_Alias,                cJSON_CreateNumber(pClf->Alias));
         }
     }
     if(v_count(&pQos->qu) > 0)
