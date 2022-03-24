@@ -1302,9 +1302,6 @@ Queue_GetParamIntValue
     if (AnscEqualString(pParamName, DM_QUEUE_ShapingRate, TRUE)) {
         *pInt = pDmQueueEntry->ShapingRate;
         ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_QUEUE_Bandwidth, TRUE)) {
-        *pInt = pDmQueueEntry->Bandwidth;
-        ret = TRUE;
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
@@ -1497,6 +1494,9 @@ Queue_SetParamUlongValue
         ret = TRUE;
     } else if (AnscEqualString(pParamName, DM_QUEUE_SchedulerAlgorithm, TRUE)) {
         pDmQueueEntry->SchedulerAlgorithm = uValue;
+        ret = TRUE;
+    } else if (AnscEqualString(pParamName, DM_QUEUE_Bandwidth, TRUE)) {
+        *pInt = pDmQueueEntry->Bandwidth;
         ret = TRUE;
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
