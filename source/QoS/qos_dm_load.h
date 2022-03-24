@@ -42,12 +42,10 @@ typedef union {
 
 #define DM_QUEUE                    "Queue"
 #define DM_QUEUE_Enable             "Enable"
-#define DM_QUEUE_TrafficClasses     "TrafficClasses"
 #define DM_QUEUE_Interface          "Interface"
-#define DM_QUEUE_Weight             "Weight"
-#define DM_QUEUE_Precedence         "Precedence"
 #define DM_QUEUE_SchedulerAlgorithm "SchedulerAlgorithm"
-#define DM_QUEUE_ShapingRate        "ShapingRate"
+#define DM_QUEUE_Bandwidth          "Bandwidth"
+#define DM_QUEUE_Alias              "Alias"
 
 #define DM_CLF                      "Classification"
 #define DM_CLF_Enable               "Enable"
@@ -75,9 +73,13 @@ typedef union {
 int32_t qos_DmLoadDefaults(void);
 
 bool qos_DmSave(const char *pTableName, uint32_t entryIdx, const char *pValueName, Value_t *pParam);
+
 bool qos_DmSaveQoS(QoS_t *qos);
+
 bool qos_DmSetString(const char *pTableName, uint32_t entryIdx, const char *valueName, const char *value);
+
 bool qos_DmSetInt(const char *pTableName, uint32_t entryIdx, const char *valueName, int32_t value);
+
 bool qos_DmSetBool(const char *pTableName, uint32_t entryIdx, const char *valueName, bool value);
 
 #endif

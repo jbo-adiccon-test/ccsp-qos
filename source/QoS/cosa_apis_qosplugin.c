@@ -47,11 +47,10 @@ static int testval = 0;
     return:     The status of the operation.
 
 **********************************************************************/
-    
 
-BOOL Classification_IsUpdated(ANSC_HANDLE hInsContext)
-{
-    BOOL        bIsUpdated = TRUE;
+
+BOOL Classification_IsUpdated(ANSC_HANDLE hInsContext) {
+    BOOL bIsUpdated = TRUE;
     return bIsUpdated;
 }
 
@@ -73,8 +72,7 @@ BOOL Classification_IsUpdated(ANSC_HANDLE hInsContext)
     return:     The status of the operation.
 
 **********************************************************************/
-ULONG Classification_Synchronize(ANSC_HANDLE hInsContext)
-{
+ULONG Classification_Synchronize(ANSC_HANDLE hInsContext) {
     ANSC_STATUS returnStatus = ANSC_STATUS_SUCCESS;
     return returnStatus;
 }
@@ -97,12 +95,12 @@ ULONG Classification_Synchronize(ANSC_HANDLE hInsContext)
     return:     The count of the table
 
 **********************************************************************/
-ULONG Classification_GetEntryCount(ANSC_HANDLE hInsContext)
-{
+ULONG Classification_GetEntryCount(ANSC_HANDLE hInsContext) {
     ULONG count = 0;
     qos_ClassificationEntryCount(&count);
     return count;
 }
+
 /**********************************************************************
     caller:     owner of this object
 
@@ -126,18 +124,16 @@ ULONG Classification_GetEntryCount(ANSC_HANDLE hInsContext)
     return:     The handle to identify the entry
 
 **********************************************************************/
-ANSC_HANDLE Classification_GetEntry(ANSC_HANDLE hInsContext, ULONG nIndex, ULONG* pInsNumber)
-{
+ANSC_HANDLE Classification_GetEntry(ANSC_HANDLE hInsContext, ULONG nIndex, ULONG *pInsNumber) {
     ANSC_HANDLE pDmlEntry = NULL;
 
     Classification_t *pDmClsEntry = NULL;
 
     qos_ClassificationGetEntry(nIndex, &pDmClsEntry);
 
-    if(pDmClsEntry != NULL)
-    {
+    if (pDmClsEntry != NULL) {
         *pInsNumber = pDmClsEntry->srv_instanceNumber;
-        pDmlEntry = (ANSC_HANDLE)pDmClsEntry;
+        pDmlEntry = (ANSC_HANDLE) pDmClsEntry;
     }
 
     return pDmlEntry;
@@ -164,21 +160,19 @@ ANSC_HANDLE Classification_GetEntry(ANSC_HANDLE hInsContext, ULONG nIndex, ULONG
     return:     The handle of new added entry.
 
 **********************************************************************/
-#define ADD_OBJ_MAGIC 10000 
+#define ADD_OBJ_MAGIC 10000
 
-ANSC_HANDLE Classification_AddEntry(ANSC_HANDLE hInsContext, ULONG* pInsNumber)
-{
+ANSC_HANDLE Classification_AddEntry(ANSC_HANDLE hInsContext, ULONG *pInsNumber) {
     ANSC_STATUS returnStatus = ANSC_STATUS_SUCCESS;
     ULONG count = 0;
     Classification_t clf = {0}, *pNewClf = NULL;
 
-    if(qos_ClassificationAddEntry(&clf) == ANSC_STATUS_SUCCESS)
-    {
+    if (qos_ClassificationAddEntry(&clf) == ANSC_STATUS_SUCCESS) {
         qos_ClassificationGetEntryInstance(clf.srv_instanceNumber, &pNewClf);
         *pInsNumber = pNewClf->srv_instanceNumber;
     }
 
-    return (ANSC_HANDLE)pNewClf;
+    return (ANSC_HANDLE) pNewClf;
 }
 
 /**********************************************************************
@@ -202,13 +196,12 @@ ANSC_HANDLE Classification_AddEntry(ANSC_HANDLE hInsContext, ULONG* pInsNumber)
     return:     The status of the operation.
 
 **********************************************************************/
-ULONG Classification_DelEntry(ANSC_HANDLE hInsContext, ANSC_HANDLE hInstance)
-{
+ULONG Classification_DelEntry(ANSC_HANDLE hInsContext, ANSC_HANDLE hInstance) {
     ANSC_STATUS returnStatus = ANSC_STATUS_SUCCESS;
 
-    Classification_t * pClf = (Classification_t *) hInstance;
+    Classification_t *pClf = (Classification_t *) hInstance;
 
-    if(pClf)
+    if (pClf)
         returnStatus = qos_ClassificationDeleteEntryItem(pClf);
 
     return returnStatus;
@@ -256,78 +249,56 @@ ULONG Classification_DelEntry(ANSC_HANDLE hInsContext, ANSC_HANDLE hInstance)
 
 ULONG
 Classification_GetParamStringValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        char*                       pValue,
-        ULONG*                      pUlSize
-    )
-{
-    if(pParamName == NULL || pValue == NULL || pUlSize == NULL)
-    {
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                char *pValue,
+                ULONG *pUlSize
+        ) {
+    if (pParamName == NULL || pValue == NULL || pUlSize == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return -1;
     }
 
-    Classification_t *pDmClsEntry = (Classification_t*)hInsContext;
+    Classification_t *pDmClsEntry = (Classification_t *) hInsContext;
 
-    if(pDmClsEntry == NULL)
-    {
+    if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return -1;
     }
 
-    if( AnscEqualString(pParamName, DM_CLF_DestIP, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_CLF_DestIP, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->DestIP);
         AnscCopyString(pValue, pDmClsEntry->DestIP);
     }
 
-    //Add Alias Param out of TR-181
-    else if( AnscEqualString(pParamName, DM_CLF_Alias, TRUE) )
-    {
+        //Add Alias Param out of TR-181
+    else if (AnscEqualString(pParamName, DM_CLF_Alias, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Alias);
         AnscCopyString(pValue, pDmClsEntry->Alias);
-    }
-
-    else if( AnscEqualString(pParamName, DM_CLF_DestMask, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_DestMask, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->DestMask);
         AnscCopyString(pValue, pDmClsEntry->DestMask);
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_SourceIP, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_SourceIP, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->SourceIP);
         AnscCopyString(pValue, pDmClsEntry->SourceIP);
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_SourceMask, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_SourceMask, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->SourceMask);
         AnscCopyString(pValue, pDmClsEntry->SourceMask);
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_SourceMACAddress, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_SourceMACAddress, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->SourceMACAddress);
         AnscCopyString(pValue, pDmClsEntry->SourceMACAddress);
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_ChainName, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_ChainName, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->ChainName);
         AnscCopyString(pValue, pDmClsEntry->ChainName);
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_IfaceIn, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_IfaceIn, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceIn);
         AnscCopyString(pValue, pDmClsEntry->IfaceIn);
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_IfaceOut, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_IfaceOut, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceOut);
         AnscCopyString(pValue, pDmClsEntry->IfaceOut);
-    }
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
         return -1;
     }
 
@@ -366,36 +337,30 @@ Classification_GetParamStringValue
 **********************************************************************/
 BOOL
 Classification_GetParamBoolValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        BOOL*                       pBool
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                BOOL *pBool
+        ) {
     BOOL ret = FALSE;
 
-    if(pParamName == NULL || pBool == NULL)
-    {
+    if (pParamName == NULL || pBool == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
 
-    Classification_t *pDmClsEntry = (Classification_t*)hInsContext;
+    Classification_t *pDmClsEntry = (Classification_t *) hInsContext;
 
-    if(pDmClsEntry == NULL)
-    {
+    if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return ret;
     }
 
-    if( AnscEqualString(pParamName, DM_CLF_Enable, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_CLF_Enable, TRUE)) {
         *pBool = pDmClsEntry->Enable;
         ret = TRUE;
-    }
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
     return ret;
@@ -433,12 +398,11 @@ Classification_GetParamBoolValue
 **********************************************************************/
 BOOL
 Classification_GetParamUlongValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        ULONG*                      puLong
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                ULONG *puLong
+        ) {
     return FALSE;
 }
 
@@ -474,77 +438,54 @@ Classification_GetParamUlongValue
 **********************************************************************/
 BOOL
 Classification_GetParamIntValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                        pParamName,
-        int*                      	 pInt
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                int *pInt
+        ) {
     BOOL ret = FALSE;
 
-    if(pParamName == NULL || pInt == NULL)
-    {
+    if (pParamName == NULL || pInt == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
 
-    Classification_t *pDmClsEntry = (Classification_t*)hInsContext;
+    Classification_t *pDmClsEntry = (Classification_t *) hInsContext;
 
-    if(pDmClsEntry == NULL)
-    {
+    if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return ret;
     }
 
-    if( AnscEqualString(pParamName, DM_CLF_SourcePort, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_CLF_SourcePort, TRUE)) {
         *pInt = pDmClsEntry->SourcePort;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_SourcePortRangeMax, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_SourcePortRangeMax, TRUE)) {
         *pInt = pDmClsEntry->SourcePortRangeMax;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_DestPort, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_DestPort, TRUE)) {
         *pInt = pDmClsEntry->DestPort;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_DestPortRangeMax, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_DestPortRangeMax, TRUE)) {
         *pInt = pDmClsEntry->DestPortRangeMax;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_Protocol, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_Protocol, TRUE)) {
         *pInt = pDmClsEntry->Protocol;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_DSCPMark, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_DSCPMark, TRUE)) {
         *pInt = pDmClsEntry->DSCPMark;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_TrafficClass, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_TrafficClass, TRUE)) {
         *pInt = pDmClsEntry->TrafficClass;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_TcpFlags, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_TcpFlags, TRUE)) {
         *pInt = pDmClsEntry->TcpFlags;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_TcpPsh, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_TcpPsh, TRUE)) {
         *pInt = pDmClsEntry->TcpPsh;
         ret = TRUE;
-    }
-
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
     return ret;
@@ -582,77 +523,56 @@ Classification_GetParamIntValue
 **********************************************************************/
 BOOL
 Classification_SetParamStringValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        char*                       pString
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                char *pString
+        ) {
     BOOL ret = FALSE;
 
-    if(pParamName == NULL || pString == NULL)
-    {
+    if (pParamName == NULL || pString == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
 
-    Classification_t *pDmClsEntry = (Classification_t*)hInsContext;
+    Classification_t *pDmClsEntry = (Classification_t *) hInsContext;
 
-    if(pDmClsEntry == NULL)
-    {
+    if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return ret;
     }
 
-    if( AnscEqualString(pParamName, DM_CLF_DestIP, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_CLF_DestIP, TRUE)) {
         AnscCopyString(pDmClsEntry->DestIP, pString);
         ret = TRUE;
     }
-    //Add Alias from TR-181
-    else if ( AnscEqualString(pParamName, DM_CLF_Alias, TRUE) )
-    {
+        //Add Alias from TR-181
+    else if (AnscEqualString(pParamName, DM_CLF_Alias, TRUE)) {
         AnscCopyString(pDmClsEntry->Alias, pString);
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_DestMask, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_DestMask, TRUE)) {
         AnscCopyString(pDmClsEntry->DestMask, pString);
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_SourceIP, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_SourceIP, TRUE)) {
         AnscCopyString(pDmClsEntry->SourceIP, pString);
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_SourceMask, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_SourceMask, TRUE)) {
         AnscCopyString(pDmClsEntry->SourceMask, pString);
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_SourceMACAddress, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_SourceMACAddress, TRUE)) {
         AnscCopyString(pDmClsEntry->SourceMACAddress, pString);
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_ChainName, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_ChainName, TRUE)) {
         AnscCopyString(pDmClsEntry->ChainName, pString);
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_IfaceIn, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_IfaceIn, TRUE)) {
         AnscCopyString(pDmClsEntry->IfaceIn, pString);
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_IfaceOut, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_IfaceOut, TRUE)) {
         AnscCopyString(pDmClsEntry->IfaceOut, pString);
         ret = TRUE;
-    }
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
     return ret;
@@ -690,37 +610,31 @@ Classification_SetParamStringValue
 **********************************************************************/
 BOOL
 Classification_SetParamBoolValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        BOOL                        bValue
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                BOOL bValue
+        ) {
     BOOL ret = FALSE;
 
-    if(pParamName == NULL)
-    {
+    if (pParamName == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
 
-    Classification_t *pDmClsEntry = (Classification_t*)hInsContext;
+    Classification_t *pDmClsEntry = (Classification_t *) hInsContext;
 
-    if(pDmClsEntry == NULL)
-    {
+    if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return ret;
     }
 
-    if( AnscEqualString(pParamName, DM_CLF_Enable, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_CLF_Enable, TRUE)) {
         pDmClsEntry->Enable = bValue;
         ret = TRUE;
         qos_CommitClassification(pDmClsEntry);
-    }
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
     return ret;
@@ -758,12 +672,11 @@ Classification_SetParamBoolValue
 **********************************************************************/
 BOOL
 Classification_SetParamUlongValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        ULONG                       uValue
-    )
-{ 
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                ULONG uValue
+        ) {
     return FALSE;
 }
 
@@ -799,76 +712,54 @@ Classification_SetParamUlongValue
 **********************************************************************/
 BOOL
 Classification_SetParamIntValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        int                         iValue
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                int iValue
+        ) {
     BOOL ret = FALSE;
 
-    if(pParamName == NULL)
-    {
+    if (pParamName == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
 
-    Classification_t *pDmClsEntry = (Classification_t*)hInsContext;
+    Classification_t *pDmClsEntry = (Classification_t *) hInsContext;
 
-    if(pDmClsEntry == NULL)
-    {
+    if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return ret;
     }
 
-    if( AnscEqualString(pParamName, DM_CLF_SourcePort, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_CLF_SourcePort, TRUE)) {
         pDmClsEntry->SourcePort = iValue;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_SourcePortRangeMax, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_SourcePortRangeMax, TRUE)) {
         pDmClsEntry->SourcePortRangeMax = iValue;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_DestPort, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_DestPort, TRUE)) {
         pDmClsEntry->DestPort = iValue;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_DestPortRangeMax, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_DestPortRangeMax, TRUE)) {
         pDmClsEntry->DestPortRangeMax = iValue;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_Protocol, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_Protocol, TRUE)) {
         pDmClsEntry->Protocol = iValue;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_DSCPMark, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_DSCPMark, TRUE)) {
         pDmClsEntry->DSCPMark = iValue;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_TrafficClass, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_TrafficClass, TRUE)) {
         pDmClsEntry->TrafficClass = iValue;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_TcpFlags, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_TcpFlags, TRUE)) {
         pDmClsEntry->TcpFlags = iValue;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_CLF_TcpPsh, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_CLF_TcpPsh, TRUE)) {
         pDmClsEntry->TcpPsh = iValue;
         ret = TRUE;
-    }
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
     return ret;
@@ -894,10 +785,9 @@ Classification_SetParamIntValue
 **********************************************************************/
 BOOL
 Classification_Validate
-    (
-        ANSC_HANDLE hInsContext
-    )
-{
+        (
+                ANSC_HANDLE hInsContext
+        ) {
     BOOL returnStatus = TRUE;
 
     printf("Classification_Validate\n");
@@ -929,16 +819,14 @@ Classification_Validate
 **********************************************************************/
 ULONG
 Classification_Commit
-    (
-        ANSC_HANDLE                 hInsContext
-    )
-{
+        (
+                ANSC_HANDLE hInsContext
+        ) {
     ANSC_STATUS returnStatus = ANSC_STATUS_FAILURE;
 
-    Classification_t *pDmClsEntry = (Classification_t*)hInsContext;
+    Classification_t *pDmClsEntry = (Classification_t *) hInsContext;
 
-    if(pDmClsEntry == NULL)
-    {
+    if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return ANSC_STATUS_FAILURE;
     }
@@ -967,10 +855,9 @@ Classification_Commit
 
 **********************************************************************/
 ULONG Classification_Rollback
-    (
-        ANSC_HANDLE hInsContext
-    )
-{
+        (
+                ANSC_HANDLE hInsContext
+        ) {
     ANSC_STATUS returnStatus = ANSC_STATUS_SUCCESS;
 
     printf("Classification_Rollback\n");
@@ -997,11 +884,10 @@ ULONG Classification_Rollback
     return:     The status of the operation.
 
 **********************************************************************/
-    
 
-BOOL Queue_IsUpdated(ANSC_HANDLE hInsContext)
-{
-    BOOL        bIsUpdated = TRUE;
+
+BOOL Queue_IsUpdated(ANSC_HANDLE hInsContext) {
+    BOOL bIsUpdated = TRUE;
     return bIsUpdated;
 }
 
@@ -1023,8 +909,7 @@ BOOL Queue_IsUpdated(ANSC_HANDLE hInsContext)
     return:     The status of the operation.
 
 **********************************************************************/
-ULONG Queue_Synchronize(ANSC_HANDLE hInsContext)
-{
+ULONG Queue_Synchronize(ANSC_HANDLE hInsContext) {
     ANSC_STATUS returnStatus = ANSC_STATUS_SUCCESS;
     return returnStatus;
 }
@@ -1047,12 +932,12 @@ ULONG Queue_Synchronize(ANSC_HANDLE hInsContext)
     return:     The count of the table
 
 **********************************************************************/
-ULONG Queue_GetEntryCount(ANSC_HANDLE hInsContext)
-{
+ULONG Queue_GetEntryCount(ANSC_HANDLE hInsContext) {
     ULONG count = 0;
     qos_QueueEntryCount(&count);
     return count;
 }
+
 /**********************************************************************
     caller:     owner of this object
 
@@ -1076,18 +961,16 @@ ULONG Queue_GetEntryCount(ANSC_HANDLE hInsContext)
     return:     The handle to identify the entry
 
 **********************************************************************/
-ANSC_HANDLE Queue_GetEntry(ANSC_HANDLE hInsContext, ULONG nIndex, ULONG* pInsNumber)
-{
+ANSC_HANDLE Queue_GetEntry(ANSC_HANDLE hInsContext, ULONG nIndex, ULONG *pInsNumber) {
     ANSC_HANDLE pDmlEntry = NULL;
 
     Queue_t *pDmQueueEntry = NULL;
 
     qos_QueueGetEntry(nIndex, &pDmQueueEntry);
 
-    if(pDmQueueEntry != NULL)
-    {
+    if (pDmQueueEntry != NULL) {
         *pInsNumber = pDmQueueEntry->srv_instanceNumber;
-        pDmlEntry = (ANSC_HANDLE)pDmQueueEntry;
+        pDmlEntry = (ANSC_HANDLE) pDmQueueEntry;
     }
 
     return pDmlEntry;
@@ -1114,19 +997,17 @@ ANSC_HANDLE Queue_GetEntry(ANSC_HANDLE hInsContext, ULONG nIndex, ULONG* pInsNum
     return:     The handle of new added entry.
 
 **********************************************************************/
-ANSC_HANDLE Queue_AddEntry(ANSC_HANDLE hInsContext, ULONG* pInsNumber)
-{
+ANSC_HANDLE Queue_AddEntry(ANSC_HANDLE hInsContext, ULONG *pInsNumber) {
     ANSC_STATUS returnStatus = ANSC_STATUS_SUCCESS;
     ULONG count = 0;
     Queue_t queue = {0}, *pNewQueue = NULL;
 
-    if(qos_QueueAddEntry(&queue) == ANSC_STATUS_SUCCESS)
-    {
+    if (qos_QueueAddEntry(&queue) == ANSC_STATUS_SUCCESS) {
         qos_QueueGetEntryInstance(queue.srv_instanceNumber, &pNewQueue);
         *pInsNumber = pNewQueue->srv_instanceNumber;
     }
 
-    return (ANSC_HANDLE)pNewQueue;
+    return (ANSC_HANDLE) pNewQueue;
 }
 
 /**********************************************************************
@@ -1150,13 +1031,12 @@ ANSC_HANDLE Queue_AddEntry(ANSC_HANDLE hInsContext, ULONG* pInsNumber)
     return:     The status of the operation.
 
 **********************************************************************/
-ULONG Queue_DelEntry(ANSC_HANDLE hInsContext, ANSC_HANDLE hInstance)
-{
+ULONG Queue_DelEntry(ANSC_HANDLE hInsContext, ANSC_HANDLE hInstance) {
     ANSC_STATUS returnStatus = ANSC_STATUS_SUCCESS;
 
-    Queue_t * pQueue = (Queue_t *) hInstance;
+    Queue_t *pQueue = (Queue_t *) hInstance;
 
-    if(pQueue)
+    if (pQueue)
         returnStatus = qos_QueueDeleteEntryItem(pQueue);
 
     return returnStatus;
@@ -1202,40 +1082,35 @@ ULONG Queue_DelEntry(ANSC_HANDLE hInsContext, ANSC_HANDLE hInstance)
 **********************************************************************/
 ULONG
 Queue_GetParamStringValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        char*                       pValue,
-        ULONG*                      pUlSize
-    )
-{
-    if(pParamName == NULL || pValue == NULL || pUlSize == NULL)
-    {
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                char *pValue,
+                ULONG *pUlSize
+        ) {
+    if (pParamName == NULL || pValue == NULL || pUlSize == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return -1;
     }
 
-    Queue_t *pDmQueueEntry = (Queue_t*)hInsContext;
+    Queue_t *pDmQueueEntry = (Queue_t *) hInsContext;
 
-    if(pDmQueueEntry == NULL)
-    {
+    if (pDmQueueEntry == NULL) {
         printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
         return -1;
     }
 
-    if( AnscEqualString(pParamName, DM_QUEUE_TrafficClasses, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_QUEUE_TrafficClasses, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmQueueEntry->TrafficClasses);
         AnscCopyString(pValue, pDmQueueEntry->TrafficClasses);
-    }
-   else if( AnscEqualString(pParamName, DM_QUEUE_Interface, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_QUEUE_Interface, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmQueueEntry->Interface);
         AnscCopyString(pValue, pDmQueueEntry->Interface);
-    }
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else if (AnscEqualString(pParamName, DM_QUEUE_Alias, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmQueueEntry->Alias);
+        AnscCopyString(pValue, pDmQueueEntry->Alias);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
         return -1;
     }
 
@@ -1274,36 +1149,30 @@ Queue_GetParamStringValue
 **********************************************************************/
 BOOL
 Queue_GetParamBoolValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        BOOL*                       pBool
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                BOOL *pBool
+        ) {
     BOOL ret = FALSE;
 
-    if(pParamName == NULL || pBool == NULL)
-    {
+    if (pParamName == NULL || pBool == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
 
-    Queue_t *pDmQueueEntry = (Queue_t*)hInsContext;
+    Queue_t *pDmQueueEntry = (Queue_t *) hInsContext;
 
-    if(pDmQueueEntry == NULL)
-    {
+    if (pDmQueueEntry == NULL) {
         printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
         return ret;
     }
 
-    if( AnscEqualString(pParamName, DM_QUEUE_Enable, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_QUEUE_Enable, TRUE)) {
         *pBool = pDmQueueEntry->Enable;
         ret = TRUE;
-    }
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
     return ret;
@@ -1341,46 +1210,39 @@ Queue_GetParamBoolValue
 **********************************************************************/
 BOOL
 Queue_GetParamUlongValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        ULONG*                      puLong
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                ULONG *puLong
+        ) {
     BOOL ret = FALSE;
 
-    if(pParamName == NULL || puLong == NULL)
-    {
+    if (pParamName == NULL || puLong == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
 
-    Queue_t *pDmQueueEntry = (Queue_t*)hInsContext;
+    Queue_t *pDmQueueEntry = (Queue_t *) hInsContext;
 
-    if(pDmQueueEntry == NULL)
-    {
+    if (pDmQueueEntry == NULL) {
         printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
         return ret;
     }
 
-    if( AnscEqualString(pParamName, DM_QUEUE_Weight, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_QUEUE_Weight, TRUE)) {
         *puLong = pDmQueueEntry->Weight;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_QUEUE_Precedence, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_QUEUE_Precedence, TRUE)) {
         *puLong = pDmQueueEntry->Precedence;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_QUEUE_SchedulerAlgorithm, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_QUEUE_SchedulerAlgorithm, TRUE)) {
         *puLong = pDmQueueEntry->SchedulerAlgorithm;
         ret = TRUE;
-    }
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else if (AnscEqualString(pParamName, DM_QUEUE_Bandwidth, TRUE)) {
+        *puLong = pDmQueueEntry->Bandwidth;
+        ret = TRUE;
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
     return ret;
@@ -1418,45 +1280,33 @@ Queue_GetParamUlongValue
 **********************************************************************/
 BOOL
 Queue_GetParamIntValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                        pParamName,
-        int*                      	 pInt
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                int *pInt
+        ) {
     BOOL ret = FALSE;
 
-    if(pParamName == NULL || pInt == NULL)
-    {
+    if (pParamName == NULL || pInt == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
 
-    Queue_t *pDmQueueEntry = (Queue_t*)hInsContext;
+    Queue_t *pDmQueueEntry = (Queue_t *) hInsContext;
 
-    if(pDmQueueEntry == NULL)
-    {
+    if (pDmQueueEntry == NULL) {
         printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
         return ret;
     }
 
-    if( AnscEqualString(pParamName, DM_QUEUE_ShapingRate, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_QUEUE_ShapingRate, TRUE)) {
         *pInt = pDmQueueEntry->ShapingRate;
         ret = TRUE;
-    }
-
-        //Add own test output
-    else if( AnscEqualString(pParamName, "TestParam", TRUE) )
-    {
-        *pInt = testval;
+    } else if (AnscEqualString(pParamName, DM_QUEUE_Bandwidth, TRUE)) {
+        *pInt = pDmQueueEntry->Bandwidth;
         ret = TRUE;
-    }
-
-
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
     return ret;
@@ -1494,41 +1344,33 @@ Queue_GetParamIntValue
 **********************************************************************/
 BOOL
 Queue_SetParamStringValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        char*                       pString
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                char *pString
+        ) {
     BOOL ret = FALSE;
 
-    if(pParamName == NULL || pString == NULL)
-    {
+    if (pParamName == NULL || pString == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
 
-    Queue_t *pDmQueueEntry = (Queue_t*)hInsContext;
+    Queue_t *pDmQueueEntry = (Queue_t *) hInsContext;
 
-    if(pDmQueueEntry == NULL)
-    {
+    if (pDmQueueEntry == NULL) {
         printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
         return ret;
     }
 
-    if( AnscEqualString(pParamName, DM_QUEUE_TrafficClasses, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_QUEUE_TrafficClasses, TRUE)) {
         AnscCopyString(pDmQueueEntry->TrafficClasses, pString);
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_QUEUE_Interface, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_QUEUE_Interface, TRUE)) {
         AnscCopyString(pDmQueueEntry->Interface, pString);
         ret = TRUE;
-    }
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
     return ret;
@@ -1566,37 +1408,31 @@ Queue_SetParamStringValue
 **********************************************************************/
 BOOL
 Queue_SetParamBoolValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        BOOL                        bValue
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                BOOL bValue
+        ) {
     BOOL ret = FALSE;
 
-    if(pParamName == NULL)
-    {
+    if (pParamName == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
 
-    Queue_t *pDmQueueEntry = (Queue_t*)hInsContext;
+    Queue_t *pDmQueueEntry = (Queue_t *) hInsContext;
 
-    if(pDmQueueEntry == NULL)
-    {
+    if (pDmQueueEntry == NULL) {
         printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
         return ret;
     }
 
-    if( AnscEqualString(pParamName, DM_QUEUE_Enable, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_QUEUE_Enable, TRUE)) {
         pDmQueueEntry->Enable = bValue;
         ret = TRUE;
         qos_CommitQueue(pDmQueueEntry);
-    }
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
     return ret;
@@ -1634,46 +1470,36 @@ Queue_SetParamBoolValue
 **********************************************************************/
 BOOL
 Queue_SetParamUlongValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        ULONG                       uValue
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                ULONG uValue
+        ) {
     BOOL ret = FALSE;
 
-    if(pParamName == NULL)
-    {
+    if (pParamName == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
 
-    Queue_t *pDmQueueEntry = (Queue_t*)hInsContext;
+    Queue_t *pDmQueueEntry = (Queue_t *) hInsContext;
 
-    if(pDmQueueEntry == NULL)
-    {
+    if (pDmQueueEntry == NULL) {
         printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
         return ret;
     }
 
-    if( AnscEqualString(pParamName, DM_QUEUE_Weight, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_QUEUE_Weight, TRUE)) {
         pDmQueueEntry->Weight = uValue;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_QUEUE_Precedence, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_QUEUE_Precedence, TRUE)) {
         pDmQueueEntry->Precedence = uValue;
         ret = TRUE;
-    }
-    else if( AnscEqualString(pParamName, DM_QUEUE_SchedulerAlgorithm, TRUE) )
-    {
+    } else if (AnscEqualString(pParamName, DM_QUEUE_SchedulerAlgorithm, TRUE)) {
         pDmQueueEntry->SchedulerAlgorithm = uValue;
         ret = TRUE;
-    }
-    else
-    {
-        printf("%s: Unsupported parameter '%s'\n", __func__,pParamName);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
     return ret;
@@ -1711,46 +1537,37 @@ Queue_SetParamUlongValue
 **********************************************************************/
 BOOL
 Queue_SetParamIntValue
-    (
-        ANSC_HANDLE                 hInsContext,
-        char*                       pParamName,
-        int                         iValue
-    )
-{
+        (
+                ANSC_HANDLE hInsContext,
+                char *pParamName,
+                int iValue
+        ) {
     BOOL ret = FALSE;
 
-    if(pParamName == NULL)
-    {
+    if (pParamName == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
 
-    Queue_t *pDmQueueEntry = (Queue_t*)hInsContext;
+    Queue_t *pDmQueueEntry = (Queue_t *) hInsContext;
 
-    if(pDmQueueEntry == NULL)
-    {
+    if (pDmQueueEntry == NULL) {
         printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
         return ret;
     }
 
-    if( AnscEqualString(pParamName, DM_QUEUE_ShapingRate, TRUE) )
-    {
+    if (AnscEqualString(pParamName, DM_QUEUE_ShapingRate, TRUE)) {
         pDmQueueEntry->ShapingRate = iValue;
         ret = TRUE;
     }
 
 
         //Add own test output
-    else if( AnscEqualString(pParamName, "TestParam", TRUE) )
-    {
+    else if (AnscEqualString(pParamName, "TestParam", TRUE)) {
         testval = iValue;
         ret = TRUE;
-    }
-
-
-    else
-    {
-        printf("%s: Unsupported parameter Huhaha Darkness comes '%s'\n", __func__,pParamName);
+    } else {
+        printf("%s: Unsupported parameter Huhaha Darkness comes '%s'\n", __func__, pParamName);
     }
 
     return ret;
@@ -1776,10 +1593,9 @@ Queue_SetParamIntValue
 **********************************************************************/
 BOOL
 Queue_Validate
-    (
-        ANSC_HANDLE hInsContext
-    )
-{
+        (
+                ANSC_HANDLE hInsContext
+        ) {
     BOOL returnStatus = TRUE;
 
     printf("Queue_Validate\n");
@@ -1811,19 +1627,17 @@ Queue_Validate
 **********************************************************************/
 ULONG
 Queue_Commit
-    (
-        ANSC_HANDLE                 hInsContext
-    )
-{
+        (
+                ANSC_HANDLE hInsContext
+        ) {
     ANSC_STATUS returnStatus = ANSC_STATUS_FAILURE;
 
-    Queue_t *pDmQueueEntry = (Queue_t*)hInsContext;
+    Queue_t *pDmQueueEntry = (Queue_t *) hInsContext;
 
-    if(pDmQueueEntry == NULL)
-    {
+    if (pDmQueueEntry == NULL) {
         printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
         return ANSC_STATUS_FAILURE;
-    } 
+    }
 
     returnStatus = ANSC_STATUS_SUCCESS;
 
@@ -1849,10 +1663,9 @@ Queue_Commit
 
 **********************************************************************/
 ULONG Queue_Rollback
-    (
-        ANSC_HANDLE hInsContext
-    )
-{
+        (
+                ANSC_HANDLE hInsContext
+        ) {
     ANSC_STATUS returnStatus = ANSC_STATUS_SUCCESS;
 
     printf("Queue_Rollback\n");

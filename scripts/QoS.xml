@@ -39,13 +39,13 @@
                         </parameter>
                         <parameter>
                             <name>Bandwidth</name>
-                            <type>int[0:1000]</type>
-                            <syntax>int</syntax>
+                            <type>unsignedInt[1:]</type>
+                            <syntax>uint32</syntax>
                             <writable>true</writable>
                         </parameter>
                         <parameter>
                             <name>Alias</name>
-                            <type>string(127)</type>
+                            <type>string(256)</type>
                             <syntax>string</syntax>
                             <writable>false</writable>
                         </parameter>
@@ -53,6 +53,12 @@
                             <name>Interface</name>
                             <type>string(256)</type>
                             <syntax>string</syntax>
+                            <writable>true</writable>
+                        </parameter>
+                        <parameter>
+                            <name>Duration</name>
+                            <type>unsignedInt</type>
+                            <syntax>uint</syntax>
                             <writable>true</writable>
                         </parameter>
                         <parameter>

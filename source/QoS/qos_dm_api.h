@@ -31,7 +31,7 @@
 #include "qos_vector.h"
 
 enum {
-    QOS_QUEUE_STATUS_Disabled           = 1,
+    QOS_QUEUE_STATUS_Disabled = 1,
     QOS_QUEUE_STATUS_Enabled,
     QOS_QUEUE_STATUS_Error_Misconfigured,
     QOS_QUEUE_STATUS_Error
@@ -54,12 +54,11 @@ enum {
 
 typedef struct {
     BOOL Enable;
-    CHAR TrafficClasses[256];
     CHAR Interface[256];
-    UINT Weight;
-    UINT Precedence;
     UINT SchedulerAlgorithm;
-    INT ShapingRate;
+    UINT Bandwidth;
+    CHAR Alias[256];
+    UINT Duration;
 
     // Service member
     ULONG srv_instanceNumber;
@@ -104,25 +103,38 @@ typedef struct {
 
 void qos_Init();
 
-void qos_CommitQueue(Queue_t * pQueue);
+void qos_CommitQueue(Queue_t *pQueue);
+
 int qos_ApplyQueues();
-void qos_QueueFillDefaults(Queue_t * pQueue);
+
+void qos_QueueFillDefaults(Queue_t *pQueue);
 
 ANSC_STATUS qos_QueueEntryCount(ULONG *pCount);
+
 ANSC_STATUS qos_QueueGetEntry(ULONG entryIdx, Queue_t **ppClass);
+
 ANSC_STATUS qos_QueueGetEntryInstance(ulong instanceNumber, Queue_t **ppQue);
+
 ANSC_STATUS qos_QueueAddEntry(Queue_t *pClass);
+
 ANSC_STATUS qos_QueueDeleteEntryItem(Queue_t *pClass);
+
 ANSC_STATUS qos_QueueItemIndex(Queue_t *pClass, ULONG *pEntryIdx);
 
-void qos_CommitClassification(Classification_t * pClf);
+void qos_CommitClassification(Classification_t *pClf);
+
 int qos_ApplyClassifications();
 
 ANSC_STATUS qos_ClassificationEntryCount(ULONG *pCount);
+
 ANSC_STATUS qos_ClassificationGetEntry(ULONG entryIdx, Classification_t **ppClass);
+
 ANSC_STATUS qos_ClassificationGetEntryInstance(ulong instanceNumber, Classification_t **ppClf);
+
 ANSC_STATUS qos_ClassificationAddEntry(Classification_t *pClass);
+
 ANSC_STATUS qos_ClassificationDeleteEntryItem(Classification_t *pClass);
+
 ANSC_STATUS qos_ClassificationItemIndex(Classification_t *pClass, ULONG *pEntryIdx);
 
 #endif
