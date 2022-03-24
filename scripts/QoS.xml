@@ -61,12 +61,6 @@
                             <syntax>uint</syntax>
                             <writable>true</writable>
                         </parameter>
-                        <parameter>
-                            <name>SchedulerAlgorithm</name>
-                            <type>string: WFQ(1),WRR(2),SP(3)</type>
-                            <syntax>uint32/mapped</syntax>
-                            <writable>true</writable>
-                        </parameter>
                     </parameters>
                 </object>
                 <object>

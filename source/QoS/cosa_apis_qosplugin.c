@@ -1100,10 +1100,7 @@ Queue_GetParamStringValue
         return -1;
     }
 
-    if (AnscEqualString(pParamName, DM_QUEUE_TrafficClasses, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmQueueEntry->TrafficClasses);
-        AnscCopyString(pValue, pDmQueueEntry->TrafficClasses);
-    } else if (AnscEqualString(pParamName, DM_QUEUE_Interface, TRUE)) {
+    if (AnscEqualString(pParamName, DM_QUEUE_Interface, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmQueueEntry->Interface);
         AnscCopyString(pValue, pDmQueueEntry->Interface);
     } else if (AnscEqualString(pParamName, DM_QUEUE_Alias, TRUE)) {
@@ -1229,17 +1226,11 @@ Queue_GetParamUlongValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_QUEUE_Weight, TRUE)) {
-        *puLong = pDmQueueEntry->Weight;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_QUEUE_Precedence, TRUE)) {
-        *puLong = pDmQueueEntry->Precedence;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_QUEUE_SchedulerAlgorithm, TRUE)) {
-        *puLong = pDmQueueEntry->SchedulerAlgorithm;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_QUEUE_Bandwidth, TRUE)) {
+    if (AnscEqualString(pParamName, DM_QUEUE_Bandwidth, TRUE)) {
         *puLong = pDmQueueEntry->Bandwidth;
+        ret = TRUE;
+    } else if (AnscEqualString(pParamName, DM_QUEUE_Duration, TRUE)) {
+        *puLong = pDmQueueEntry->Duration;
         ret = TRUE;
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
@@ -1496,7 +1487,7 @@ Queue_SetParamUlongValue
         pDmQueueEntry->SchedulerAlgorithm = uValue;
         ret = TRUE;
     } else if (AnscEqualString(pParamName, DM_QUEUE_Bandwidth, TRUE)) {
-        *pInt = pDmQueueEntry->Bandwidth;
+        pDmQueueEntry->Bandwidth = uValue;
         ret = TRUE;
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);

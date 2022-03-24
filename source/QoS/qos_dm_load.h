@@ -46,6 +46,7 @@ typedef union {
 #define DM_QUEUE_SchedulerAlgorithm "SchedulerAlgorithm"
 #define DM_QUEUE_Bandwidth          "Bandwidth"
 #define DM_QUEUE_Alias              "Alias"
+#define DM_QUEUE_Duration           "Duration"
 
 #define DM_CLF                      "Classification"
 #define DM_CLF_Enable               "Enable"

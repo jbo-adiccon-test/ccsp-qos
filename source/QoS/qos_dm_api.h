@@ -55,7 +55,7 @@ enum {
 typedef struct {
     BOOL Enable;
     CHAR Interface[256];
-    UINT SchedulerAlgorithm;
+
     UINT Bandwidth;
     CHAR Alias[256];
     UINT Duration;

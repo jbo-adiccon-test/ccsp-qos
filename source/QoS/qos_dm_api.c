@@ -82,13 +82,9 @@ void fill_qos_queue(qos_queue_t *pHalQu, const Queue_t *pQu) {
     pHalQu->class_size = parse_list_of_int(trafficClasses, pHalQu->class_list, QUEUE_MAX_TC);
     strncpy(pHalQu->device_name, pQu->Interface, sizeof(pHalQu->device_name));
 
-    if (pQu->SchedulerAlgorithm == QOS_QUEUE_SCHEDULERALGORITHM_SP)
-        pHalQu->alg = QUEUE_ALG_SP;
-    else if (pQu->SchedulerAlgorithm == QOS_QUEUE_SCHEDULERALGORITHM_WRR)
-        pHalQu->alg = QUEUE_ALG_WRR;
-    else if (pQu->SchedulerAlgorithm == QOS_QUEUE_SCHEDULERALGORITHM_WFQ)
-        pHalQu->alg = QUEUE_ALG_SP;
-    //ToDo: Add Component Links
+    pHalQu->bandwidth = pQu->Bandwidth;
+    pHalQu->duration = pQu->Duration;
+    strncpy(pHalQu->alias, pQu->Alias, sizeof(pHalQu->alias));
 }
 
 int apply_qos_queue(Queue_t *pQueue) {
@@ -159,10 +155,8 @@ int qos_ApplyQueues() {
 
 void qos_QueueFillDefaults(Queue_t *pQueue) {
     pQueue->Enable = false;
-    pQueue->Weight = 0;
-    pQueue->Precedence = 1;
-    pQueue->SchedulerAlgorithm = QOS_QUEUE_SCHEDULERALGORITHM_SP;
-    pQueue->ShapingRate = -1;
+    pQueue->Bandwidth = 50;
+    pQueue->Alias = "Cake_Queue";
 }
 
 ANSC_STATUS qos_QueueEntryCount(ULONG *pCount) {
@@ -217,7 +211,7 @@ ANSC_STATUS qos_QueueAddEntry(Queue_t *pQue) {
     if (newQue->srv_instanceNumber == 1)
         V_ADD(qos->qu, newQue);
     else
-        return ANSC_STATUS_FAIL;
+        return ANSC_STATUS_FAILURE;
 
     return returnStatus;
 }
