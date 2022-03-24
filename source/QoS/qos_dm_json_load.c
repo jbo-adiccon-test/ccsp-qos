@@ -31,22 +31,23 @@
 #include "qos_dm_api.h"
 
 static int32_t json_parse_dm_defaults(void);
+
 static void json_parse_Classification(uint32_t index, cJSON *classification);
+
 static void json_parse_Queue(uint32_t index, cJSON *queue);
+
 static void qos_copy_dm_config(char *src, char *dst);
 
-int32_t qos_DmLoadDefaults(void)
-{
+int32_t qos_DmLoadDefaults(void) {
     struct stat buffer;
     int32_t ret = -1;
 
     qos_Init();
 
-    if (0 == stat( QOS_CONFIG_CURRENT_PATH QOS_CONFIG_CURRENT_NAME, &buffer ))
+    if (0 == stat(QOS_CONFIG_CURRENT_PATH QOS_CONFIG_CURRENT_NAME, &buffer))
         ret = json_parse_dm_defaults();
 
-    if (-1 == ret)
-    {
+    if (-1 == ret) {
         char filename[MAX_FILENAME_LENGTH] = {0};
 
         snprintf(filename, MAX_FILENAME_LENGTH, "%s%s", QOS_CONFIG_DEFAULT_PATH, QOS_CONFIG_DEFAULT_NAME);
@@ -58,29 +59,26 @@ int32_t qos_DmLoadDefaults(void)
         ret = json_parse_dm_defaults();
     }
 
-    if(ret == 0)
-    {
+    if (ret == 0) {
         printf("Apply qos configuration\n");
         qos_ApplyClassifications();
         qos_ApplyQueues();
-    }
-    else
-    {
+    } else {
         printf("Fail. Can't load qos configuration\n");
     }
 
     return ret;
 }
 
-static int32_t json_parse_dm_defaults()
-{
+static int32_t json_parse_dm_defaults() {
     cJSON *config = NULL, *qos = NULL, *classification = NULL, *queue = NULL;
-    uint32_t numClassifications, numQueues, defaultDMSize, i, readBytes; void* pJsonConfig = NULL; FILE* fp;
+    uint32_t numClassifications, numQueues, defaultDMSize, i, readBytes;
+    void *pJsonConfig = NULL;
+    FILE *fp;
 
     printf("%s:%s \n", __FILE__, __FUNCTION__);
 
-    if (NULL == (fp = fopen(QOS_CONFIG_CURRENT_PATH QOS_CONFIG_CURRENT_NAME, "r")))
-    {
+    if (NULL == (fp = fopen(QOS_CONFIG_CURRENT_PATH QOS_CONFIG_CURRENT_NAME, "r"))) {
         printf("Failed to open JSON defaults file %s\n", QOS_CONFIG_CURRENT_PATH QOS_CONFIG_CURRENT_NAME);
         return -1;
     }
@@ -89,22 +87,19 @@ static int32_t json_parse_dm_defaults()
 
     pJsonConfig = malloc(defaultDMSize = ftell(fp));
 
-    if (NULL == pJsonConfig)
-    {
+    if (NULL == pJsonConfig) {
         printf("Failed to get memory for JSON file\n");
         fclose(fp);
         return -2;
     }
     fseek(fp, 0, SEEK_SET);
-    if (0 == (readBytes = fread(pJsonConfig, 1, defaultDMSize, fp)))
-    {
+    if (0 == (readBytes = fread(pJsonConfig, 1, defaultDMSize, fp))) {
         printf("Failed to read JSON file %s of size %d. Read %d. errno %d \n",
-            QOS_CONFIG_CURRENT_PATH QOS_CONFIG_CURRENT_NAME, defaultDMSize, readBytes, errno);
+               QOS_CONFIG_CURRENT_PATH QOS_CONFIG_CURRENT_NAME, defaultDMSize, readBytes, errno);
     }
     fclose(fp);
 
-    if (NULL == (config = cJSON_Parse(pJsonConfig)))
-    {
+    if (NULL == (config = cJSON_Parse(pJsonConfig))) {
         printf("Failed to parse JSON file, error is at %p, start is at %p\n", cJSON_GetErrorPtr(), pJsonConfig);
         free(pJsonConfig);
         return -1;
@@ -112,27 +107,22 @@ static int32_t json_parse_dm_defaults()
 
     free(pJsonConfig);
 
-    if (NULL == (qos = cJSON_GetObjectItemCaseSensitive(config, DM_QOS)))
-    {
+    if (NULL == (qos = cJSON_GetObjectItemCaseSensitive(config, DM_QOS))) {
         cJSON_Delete(config);
         return -1;
     }
 
-    if (NULL != (classification = cJSON_GetObjectItemCaseSensitive(qos, DM_CLF)))
-    {
-        numClassifications = (uint32_t)cJSON_GetArraySize(classification);
-        for ( i=0 ; i<numClassifications ; i++ )
-        {
-            json_parse_Classification(i, cJSON_GetArrayItem(classification, (uint32_t)i));
+    if (NULL != (classification = cJSON_GetObjectItemCaseSensitive(qos, DM_CLF))) {
+        numClassifications = (uint32_t) cJSON_GetArraySize(classification);
+        for (i = 0; i < numClassifications; i++) {
+            json_parse_Classification(i, cJSON_GetArrayItem(classification, (uint32_t) i));
         }
     }
 
-    if (NULL != (queue = cJSON_GetObjectItemCaseSensitive(qos, DM_QUEUE)))
-    {
-        numQueues = (uint32_t)cJSON_GetArraySize(queue);
-        for ( i=0 ; i < numQueues ; i++ )
-        {
-            json_parse_Queue(i, cJSON_GetArrayItem(queue, (uint32_t)i));
+    if (NULL != (queue = cJSON_GetObjectItemCaseSensitive(qos, DM_QUEUE))) {
+        //numQueues = (uint32_t)cJSON_GetArraySize(queue);
+        for (i = 0; i < 1; i++) {
+            json_parse_Queue(i, cJSON_GetArrayItem(queue, (uint32_t) i));
         }
     }
 
@@ -141,25 +131,21 @@ static int32_t json_parse_dm_defaults()
     return 0;
 }
 
-static void qos_copy_dm_config(char *src, char *dst)
-{
-    char            buffer[512];
-    size_t          n;
+static void qos_copy_dm_config(char *src, char *dst) {
+    char buffer[512];
+    size_t n;
     FILE *fpSrc, *fpDst;
 
-    if (NULL == (fpSrc = fopen(src, "r")))
-    {
+    if (NULL == (fpSrc = fopen(src, "r"))) {
         printf("Failed to open source %s for copy\n", src);
         return;
     }
-    if (NULL == (fpDst = fopen(dst, "w")))
-    {
+    if (NULL == (fpDst = fopen(dst, "w"))) {
         printf("Failed to open destination %s for copy, errno is %d\n", dst, errno);
         fclose(fpSrc);
         return;
     }
-    while ((n = fread(buffer, sizeof(char), sizeof(buffer), fpSrc)) > 0)
-    {
+    while ((n = fread(buffer, sizeof(char), sizeof(buffer), fpSrc)) > 0) {
         if (fwrite(buffer, sizeof(char), n, fpDst) != n)
             printf("Copy failed\n");
     }
@@ -172,13 +158,11 @@ static void qos_copy_dm_config(char *src, char *dst)
 
 #define ARR_NUM_OF_ELEMS(a) (sizeof(a)/sizeof(a[0]))
 
-static void json_parse_Classification(uint32_t index, cJSON *pClassificationObj)
-{
+static void json_parse_Classification(uint32_t index, cJSON *pClassificationObj) {
     cJSON *vsItem = NULL;
     Classification_t newClassification = {0};
-    
-    if (NULL == pClassificationObj)
-    {
+
+    if (NULL == pClassificationObj) {
         printf("%s: NULL JSON object found!\n", __FUNCTION__);
         return;
     }
@@ -220,7 +204,8 @@ static void json_parse_Classification(uint32_t index, cJSON *pClassificationObj)
         strncpy(newClassification.SourceMask, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.SourceMask));
 
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_SourceMACAddress)))
-        strncpy(newClassification.SourceMACAddress, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.SourceMACAddress));
+        strncpy(newClassification.SourceMACAddress, vsItem->valuestring,
+                ARR_NUM_OF_ELEMS(newClassification.SourceMACAddress));
 
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_ChainName)))
         strncpy(newClassification.ChainName, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.ChainName));
@@ -243,13 +228,11 @@ static void json_parse_Classification(uint32_t index, cJSON *pClassificationObj)
     qos_ClassificationAddEntry(&newClassification);
 }
 
-static void json_parse_Queue(uint32_t index, cJSON *pQueueObj)
-{
+static void json_parse_Queue(uint32_t index, cJSON *pQueueObj) {
     cJSON *vsItem = NULL;
     Queue_t newQueue = {0};
 
-    if (NULL == pQueueObj)
-    {
+    if (NULL == pQueueObj) {
         printf("%s: NULL JSON object found!\n", __FUNCTION__);
         return;
     }
