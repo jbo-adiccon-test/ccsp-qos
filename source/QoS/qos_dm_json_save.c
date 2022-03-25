@@ -70,10 +70,9 @@ cJSON* json_create_object(const char* pTableName)
         cJSON_AddItemToObject(queue, DM_QUEUE_Enable, cJSON_CreateString(""));
         cJSON_AddItemToObject(queue, DM_QUEUE_TrafficClasses, cJSON_CreateString(""));
         cJSON_AddItemToObject(queue, DM_QUEUE_Interface, cJSON_CreateString(""));
-        cJSON_AddItemToObject(queue, DM_QUEUE_Weight, cJSON_CreateString(""));
-        cJSON_AddItemToObject(queue, DM_QUEUE_Precedence, cJSON_CreateString(""));
-        cJSON_AddItemToObject(queue, DM_QUEUE_SchedulerAlgorithm, cJSON_CreateString(""));
-        cJSON_AddItemToObject(queue, DM_QUEUE_ShapingRate, cJSON_CreateString(""));
+        cJSON_AddItemToObject(queue, DM_QUEUE_Alias, cJSON_CreateString(""));
+        cJSON_AddItemToObject(queue, DM_QUEUE_Bandwidth, cJSON_CreateString(""));
+        cJSON_AddItemToObject(queue, DM_QUEUE_Duration, cJSON_CreateString(""));
     }
 
     return clf;
