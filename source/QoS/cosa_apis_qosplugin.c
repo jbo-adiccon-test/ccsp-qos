@@ -1179,7 +1179,7 @@ Queue_GetParamBoolValue
 
     caller:     owner of this object 
 
-    prototype: 
+    prototype:
 
         BOOL
         Queue_GetParamUlongValue
@@ -1290,12 +1290,9 @@ Queue_GetParamIntValue
         return ret;
     }
 
-    printf(
-            "%s: Unsupported parameter '%s'\n", __func__, pParamName);
-}
+    printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
 
-return
-ret;
+    return ret;
 }
 
 /**********************************************************************  

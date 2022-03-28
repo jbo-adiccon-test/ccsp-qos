@@ -226,7 +226,6 @@ bool qos_DmSaveQoS(QoS_t *pQos) {
             pQueue = V_GET(pQos->qu, Queue_t*, i);
 
             cJSON_AddItemToObject(qu, DM_QUEUE_Enable, cJSON_CreateBool(pQueue->Enable));
-            cJSON_AddItemToObject(qu, DM_QUEUE_TrafficClasses, cJSON_CreateString(pQueue->TrafficClasses));
             cJSON_AddItemToObject(qu, DM_QUEUE_Interface, cJSON_CreateString(pQueue->Interface));
             cJSON_AddItemToObject(qu, DM_QUEUE_Bandwidth, cJSON_CreateNumber(pQueue->Bandwidth));
             cJSON_AddItemToObject(qu, DM_QUEUE_Alias, cJSON_CreateString(pQueue->Alias));
