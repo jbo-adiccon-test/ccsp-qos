@@ -1290,10 +1290,8 @@ Queue_GetParamIntValue
         return ret;
     }
 
-    if (AnscEqualStrin
-
     printf(
-        "%s: Unsupported parameter '%s'\n", __func__, pParamName);
+            "%s: Unsupported parameter '%s'\n", __func__, pParamName);
 }
 
 return
@@ -1353,6 +1351,9 @@ Queue_SetParamStringValue
 
     if (AnscEqualString(pParamName, DM_QUEUE_Interface, TRUE)) {
         AnscCopyString(pDmQueueEntry->Interface, pString);
+        ret = TRUE;
+    } else if (AnscEqualString(pParamName, DM_QUEUE_Alias, TRUE)) {
+        AnscCopyString(pDmQueueEntry->Alias, pString);
         ret = TRUE;
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
