@@ -77,9 +77,6 @@ int parse_list_of_int(char *input, int *output, uint outputMaxSize) {
 }
 
 void fill_qos_queue(qos_queue_t *pHalQu, const Queue_t *pQu) {
-    CHAR trafficClasses[256] = {0};
-    strncpy(trafficClasses, pQu->TrafficClasses, sizeof(trafficClasses));
-    pHalQu->class_size = parse_list_of_int(trafficClasses, pHalQu->class_list, QUEUE_MAX_TC);
     strncpy(pHalQu->device_name, pQu->Interface, sizeof(pHalQu->device_name));
 
     pHalQu->bandwidth = pQu->Bandwidth;
@@ -156,7 +153,7 @@ int qos_ApplyQueues() {
 void qos_QueueFillDefaults(Queue_t *pQueue) {
     pQueue->Enable = false;
     pQueue->Bandwidth = 50;
-    pQueue->Alias = "Cake_Queue";
+    strncpy(pQueue->Alias, "Cake_Queue", strlen("Cake_Queue"));
 }
 
 ANSC_STATUS qos_QueueEntryCount(ULONG *pCount) {

@@ -15,12 +15,8 @@ struct qos_queue {
 
     unsigned bandwidth;
     unsigned duration;
-    // Number of elements in class_list
-    unsigned class_size;
 
     char alias[256];
-    // List of traffic classes related to the queue
-    int class_list[QUEUE_MAX_TC];
 };
 
 // Adds queue & shaping
