@@ -63,7 +63,6 @@ cJSON *json_create_object(const char *pTableName) {
     } else if (!strcmp(pTableName, DM_QUEUE)) {
         queue = cJSON_CreateObject();
         cJSON_AddItemToObject(queue, DM_QUEUE_Enable, cJSON_CreateString(""));
-        cJSON_AddItemToObject(queue, DM_QUEUE_Enable, cJSON_CreateString(""));
         cJSON_AddItemToObject(queue, DM_QUEUE_Interface, cJSON_CreateString(""));
         cJSON_AddItemToObject(queue, DM_QUEUE_Bandwidth, cJSON_CreateString(""));
         cJSON_AddItemToObject(queue, DM_QUEUE_Alias, cJSON_CreateString(""));
@@ -229,10 +228,9 @@ bool qos_DmSaveQoS(QoS_t *pQos) {
             cJSON_AddItemToObject(qu, DM_QUEUE_Enable, cJSON_CreateBool(pQueue->Enable));
             cJSON_AddItemToObject(qu, DM_QUEUE_TrafficClasses, cJSON_CreateString(pQueue->TrafficClasses));
             cJSON_AddItemToObject(qu, DM_QUEUE_Interface, cJSON_CreateString(pQueue->Interface));
-            cJSON_AddItemToObject(qu, DM_QUEUE_Weight, cJSON_CreateNumber(pQueue->Weight));
-            cJSON_AddItemToObject(qu, DM_QUEUE_Precedence, cJSON_CreateNumber(pQueue->Precedence));
-            cJSON_AddItemToObject(qu, DM_QUEUE_SchedulerAlgorithm, cJSON_CreateNumber(pQueue->SchedulerAlgorithm));
-            cJSON_AddItemToObject(qu, DM_QUEUE_ShapingRate, cJSON_CreateNumber(pQueue->ShapingRate));
+            cJSON_AddItemToObject(qu, DM_QUEUE_Bandwidth, cJSON_CreateNumber(pQueue->Bandwidth));
+            cJSON_AddItemToObject(qu, DM_QUEUE_Alias, cJSON_CreateNumber(pQueue->Alias));
+            cJSON_AddItemToObject(qu, DM_QUEUE_Duration, cJSON_CreateNumber(pQueue->Duration));
         }
     }
 
