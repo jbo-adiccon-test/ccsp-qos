@@ -1290,14 +1290,14 @@ Queue_GetParamIntValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_QUEUE_ShapingRate, TRUE)) {
-        *pInt = pDmQueueEntry->ShapingRate;
-        ret = TRUE;
-    } else {
-        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
-    }
+    if (AnscEqualStrin
 
-    return ret;
+    printf(
+        "%s: Unsupported parameter '%s'\n", __func__, pParamName);
+}
+
+return
+ret;
 }
 
 /**********************************************************************  
@@ -1351,10 +1351,7 @@ Queue_SetParamStringValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_QUEUE_TrafficClasses, TRUE)) {
-        AnscCopyString(pDmQueueEntry->TrafficClasses, pString);
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_QUEUE_Interface, TRUE)) {
+    if (AnscEqualString(pParamName, DM_QUEUE_Interface, TRUE)) {
         AnscCopyString(pDmQueueEntry->Interface, pString);
         ret = TRUE;
     } else {
@@ -1477,14 +1474,8 @@ Queue_SetParamUlongValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_QUEUE_Weight, TRUE)) {
-        pDmQueueEntry->Weight = uValue;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_QUEUE_Precedence, TRUE)) {
-        pDmQueueEntry->Precedence = uValue;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_QUEUE_SchedulerAlgorithm, TRUE)) {
-        pDmQueueEntry->SchedulerAlgorithm = uValue;
+    if (AnscEqualString(pParamName, DM_QUEUE_Duration, TRUE)) {
+        pDmQueueEntry->Duration = uValue;
         ret = TRUE;
     } else if (AnscEqualString(pParamName, DM_QUEUE_Bandwidth, TRUE)) {
         pDmQueueEntry->Bandwidth = uValue;
@@ -1547,19 +1538,7 @@ Queue_SetParamIntValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_QUEUE_ShapingRate, TRUE)) {
-        pDmQueueEntry->ShapingRate = iValue;
-        ret = TRUE;
-    }
-
-
-        //Add own test output
-    else if (AnscEqualString(pParamName, "TestParam", TRUE)) {
-        testval = iValue;
-        ret = TRUE;
-    } else {
-        printf("%s: Unsupported parameter Huhaha Darkness comes '%s'\n", __func__, pParamName);
-    }
+    printf("%s: Unsupported parameter Huhaha Darkness comes '%s'\n", __func__, pParamName);
 
     return ret;
 }

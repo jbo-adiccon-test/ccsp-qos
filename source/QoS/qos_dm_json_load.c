@@ -246,17 +246,15 @@ static void json_parse_Queue(uint32_t index, cJSON *pQueueObj) {
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_Interface)))
         strncpy(newQueue.Interface, vsItem->valuestring, ARR_NUM_OF_ELEMS(newQueue.Interface));
 
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_Weight)))
-        newQueue.Weight = vsItem->valueint;
+    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_Bandwidth)))
+        newQueue.Bandwidth = vsItem->valueint;
 
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_Precedence)))
-        newQueue.Precedence = vsItem->valueint;
+    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_Alias))
+        strncpy(newQueue.Alias, vsItem->valuestring, ARR_NUM_OF_ELEMS(newQueue.Alias)));
 
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_SchedulerAlgorithm)))
-        newQueue.SchedulerAlgorithm = vsItem->valueint;
+    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_Duration)))
+        newQueue.Duration = vsItem->valueint;
 
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_ShapingRate)))
-        newQueue.ShapingRate = vsItem->valueint;
 
     qos_QueueAddEntry(&newQueue);
 }
