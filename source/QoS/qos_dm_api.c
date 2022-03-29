@@ -273,8 +273,9 @@ int apply_qos_class(Classification_t *pClf) {
     QoS_t *qos = get_QoS();
     qos_class_t qclf = {0};
 
-    if (!pClf->Enable)
+    if (!pClf->Enable) {
         return -2;
+    }
 
     fill_qos_class(&qclf, pClf, v_itemIndex(&qos->cl, pClf));
 
@@ -375,6 +376,9 @@ ANSC_STATUS qos_ClassificationDeleteEntryItem(Classification_t *pClass) {
     if (entryIdx > -1) {
         AnscFreeMemory(V_GET(qos->cl, void*, entryIdx));
         v_delete(&qos->cl, entryIdx);
+
+        // Extend special Classification
+        //qos_removeOneClass(pClass->Alias);
 
         qos_ApplyClassifications();
 
