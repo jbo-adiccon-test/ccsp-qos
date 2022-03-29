@@ -80,7 +80,6 @@ void fill_qos_queue(qos_queue_t *pHalQu, const Queue_t *pQu) {
     strncpy(pHalQu->device_name, pQu->Interface, sizeof(pHalQu->device_name));
 
     pHalQu->bandwidth = pQu->Bandwidth;
-    pHalQu->duration = pQu->Duration;
     strncpy(pHalQu->alias, pQu->Alias, sizeof(pHalQu->alias));
 }
 

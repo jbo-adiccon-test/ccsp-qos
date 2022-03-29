@@ -249,9 +249,6 @@ static void json_parse_Queue(uint32_t index, cJSON *pQueueObj) {
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_Alias)))
         strncpy(newQueue.Alias, vsItem->valuestring, ARR_NUM_OF_ELEMS(newQueue.Alias));
 
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_Duration)))
-        newQueue.Duration = vsItem->valueint;
-
 
     qos_QueueAddEntry(&newQueue);
 }

@@ -55,12 +55,6 @@
                             <syntax>string</syntax>
                             <writable>true</writable>
                         </parameter>
-                        <parameter>
-                            <name>Duration</name>
-                            <type>unsignedInt[1:]</type>
-                            <syntax>uint32</syntax>
-                            <writable>true</writable>
-                        </parameter>
                     </parameters>
                 </object>
                 <object>
@@ -97,6 +91,12 @@
                             <name>Alias</name>
                             <type>string(255)</type>
                             <syntax>string</syntax>
+                            <writable>true</writable>
+                        </parameter>
+                        <parameter>
+                            <name>Duration</name>
+                            <type>unsignedInt[1:]</type>
+                            <syntax>uint32</syntax>
                             <writable>true</writable>
                         </parameter>
                         <parameter>
