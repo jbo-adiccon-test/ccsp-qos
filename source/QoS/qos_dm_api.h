@@ -58,7 +58,6 @@ typedef struct {
 
     UINT Bandwidth;
     CHAR Alias[256];
-    UINT Duration;
 
     // Service member
     ULONG srv_instanceNumber;
@@ -85,6 +84,8 @@ typedef struct {
     CHAR IfaceOut[16];
     INT TcpFlags;
     INT TcpPsh;
+
+    UINT Duration;
 
     //Add Alias to type abstraction
     CHAR Alias[255];

@@ -65,6 +65,7 @@ typedef union {
 #define DM_CLF_IfaceOut             "IfaceOut"
 #define DM_CLF_TcpFlags             "TcpFlags"
 #define DM_CLF_TcpPsh               "TcpPsh"
+#define DM_CLF_Duration             "Duration"
 
 //Add own Alias out of TR-181
 #define DM_CLF_Alias                "Alias"

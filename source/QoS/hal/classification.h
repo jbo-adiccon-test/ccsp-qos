@@ -7,8 +7,7 @@
 #define CLASS_MAC_SIZE 18
 #define CLASS_CHAIN_NAME_SIZE 16
 
-struct qos_class
-{
+struct qos_class {
     // Unique ID
     unsigned id;
     // Traffic class of the rule
@@ -46,11 +45,14 @@ struct qos_class
     // --tcp-flags ALL PSH
     int tcp_psh;
 
+    unsigned duration;
+
     //Add Alias out of TR-181 for classification
     char alias[255];
 };
 
 int qos_addClass(const struct qos_class *param);
+
 int qos_removeAllClasses();
 
 #endif

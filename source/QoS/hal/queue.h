@@ -14,7 +14,6 @@ struct qos_queue {
     char device_name[IFNAMSIZ];
 
     unsigned bandwidth;
-
     char alias[256];
 };
 
