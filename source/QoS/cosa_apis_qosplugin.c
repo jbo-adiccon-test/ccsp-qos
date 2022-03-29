@@ -701,7 +701,7 @@ Classification_SetParamUlongValue
         ) {
     BOOL ret = FALSE;
 
-    if (pParamName == NULL || puLong == NULL) {
+    if (pParamName == NULL) {
         printf("%s: Invalid Input Parameter [NULL]\n", __func__);
         return ret;
     }
