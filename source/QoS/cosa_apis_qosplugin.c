@@ -403,7 +403,29 @@ Classification_GetParamUlongValue
                 char *pParamName,
                 ULONG *puLong
         ) {
-    return FALSE;
+    BOOL ret = FALSE;
+
+    if (pParamName == NULL || puLong == NULL) {
+        printf("%s: Invalid Input Parameter [NULL]\n", __func__);
+        return ret;
+    }
+
+    Classification_t *pDmClsEntry = (Queue_t *) hInsContext;
+
+    if (pDmClsEntry == NULL) {
+        printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
+        return ret;
+    }
+
+    if (AnscEqualString(pParamName, DM_CLF_Duration, TRUE)) {
+        *puLong = pDmClsEntry->Duration;
+        ret = TRUE;
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
+    }
+
+    return ret;
+
 }
 
 /**********************************************************************  
@@ -677,7 +699,28 @@ Classification_SetParamUlongValue
                 char *pParamName,
                 ULONG uValue
         ) {
-    return FALSE;
+    BOOL ret = FALSE;
+
+    if (pParamName == NULL || puLong == NULL) {
+        printf("%s: Invalid Input Parameter [NULL]\n", __func__);
+        return ret;
+    }
+
+    Classification_t *pDmClsEntry = (Queue_t *) hInsContext;
+
+    if (pDmClsEntry == NULL) {
+        printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
+        return ret;
+    }
+
+    if (AnscEqualString(pParamName, DM_CLF_Duration, TRUE)) {
+        pDmClsEntry->Duration = uValue;
+        ret = TRUE;
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
+    }
+
+    return ret;
 }
 
 /**********************************************************************  
