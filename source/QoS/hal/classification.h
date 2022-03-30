@@ -55,6 +55,6 @@ int qos_addClass(const struct qos_class *param);
 
 int qos_removeAllClasses();
 
-int qos_removeOneClass(char *str);
+int qos_removeOneClass();
 
 #endif
