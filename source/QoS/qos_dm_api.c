@@ -378,9 +378,9 @@ ANSC_STATUS qos_ClassificationDeleteEntryItem(Classification_t *pClass) {
         v_delete(&qos->cl, entryIdx);
 
         // Extend special Classification
-        //qos_removeOneClass(pClass->Alias);
+        qos_removeOneClass(pClass->Alias);
 
-        qos_ApplyClassifications();
+        //qos_ApplyClassifications();
 
         returnStatus = ANSC_STATUS_SUCCESS;
     }
