@@ -274,6 +274,7 @@ int apply_qos_class(Classification_t *pClf) {
     qos_class_t qclf = {0};
 
     if (!pClf->Enable) {
+        qos_removeOneClass();
         return -2;
     }
 
@@ -302,8 +303,7 @@ int qos_ApplyClassifications() {
     qos_class_t qclf = {0};
     Classification_t *pClfItr = NULL;
 
-    //qos_removeAllClasses();
-    qos_removeOneClass();
+    qos_removeAllClasses();
 
     for (ulong i = 0; i < v_count(&qos->cl); i++) {
         pClfItr = V_GET(qos->cl, Classification_t*, i);
