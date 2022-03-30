@@ -302,7 +302,8 @@ int qos_ApplyClassifications() {
     qos_class_t qclf = {0};
     Classification_t *pClfItr = NULL;
 
-    qos_removeAllClasses();
+    //qos_removeAllClasses();
+    qos_removeOneClass();
 
     for (ulong i = 0; i < v_count(&qos->cl); i++) {
         pClfItr = V_GET(qos->cl, Classification_t*, i);
@@ -378,9 +379,9 @@ ANSC_STATUS qos_ClassificationDeleteEntryItem(Classification_t *pClass) {
         v_delete(&qos->cl, entryIdx);
 
         // Extend special Classification
-        qos_removeOneClass();
+        //qos_removeOneClass();
 
-        //qos_ApplyClassifications();
+        qos_ApplyClassifications();
 
         returnStatus = ANSC_STATUS_SUCCESS;
     }
