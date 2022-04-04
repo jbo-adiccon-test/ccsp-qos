@@ -266,7 +266,7 @@ void fill_qos_class(qos_class_t *pHalClf, const Classification_t *pClf, ulong id
     pHalClf->tcp_flags = pClf->TcpFlags;
     pHalClf->tcp_psh = pClf->TcpPsh;
     strncpy(pHalClf->alias, pClf->Alias, sizeof(pHalClf->alias));
-    pHalClf->duration = pClf->Duration;
+    strncpy(pHalClf->duration, pClf->Duration, sizeof(pHalClf->duration));
 }
 
 int apply_qos_class(Classification_t *pClf) {

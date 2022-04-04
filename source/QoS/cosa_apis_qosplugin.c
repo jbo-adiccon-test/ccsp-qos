@@ -18,6 +18,7 @@
 */
 
 #include "ansc_platform.h"
+#include "ansc_time.h"
 #include "cosa_apis_qosplugin.h"
 #include "ccsp_trace.h"
 #include "ccsp_syslog.h"
@@ -270,8 +271,10 @@ Classification_GetParamStringValue
     if (AnscEqualString(pParamName, DM_CLF_DestIP, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->DestIP);
         AnscCopyString(pValue, pDmClsEntry->DestIP);
+    } else if (AnscEqualString(pParamName, DM_CLF_Duration, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Duration);
+        AnscCopyString(pValue, pDmClsEntry->Duration);
     }
-
         //Add Alias Param out of TR-181
     else if (AnscEqualString(pParamName, DM_CLF_Alias, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Alias);
@@ -415,11 +418,6 @@ Classification_GetParamUlongValue
     if (pDmClsEntry == NULL) {
         printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
         return ret;
-    }
-
-    if (AnscEqualString(pParamName, DM_CLF_Duration, TRUE)) {
-        *puLong = pDmClsEntry->Duration;
-        ret = TRUE;
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
@@ -567,9 +565,10 @@ Classification_SetParamStringValue
     if (AnscEqualString(pParamName, DM_CLF_DestIP, TRUE)) {
         AnscCopyString(pDmClsEntry->DestIP, pString);
         ret = TRUE;
-    }
-        //Add Alias from TR-181
-    else if (AnscEqualString(pParamName, DM_CLF_Alias, TRUE)) {
+    } else if (AnscEqualString(pParamName, DM_CLF_Duration, TRUE)) {
+        AnscCopyString(pDmClsEntry->Duration, pString);
+        ret = TRUE;
+    } else if (AnscEqualString(pParamName, DM_CLF_Alias, TRUE)) {
         AnscCopyString(pDmClsEntry->Alias, pString);
         ret = TRUE;
     } else if (AnscEqualString(pParamName, DM_CLF_DestMask, TRUE)) {
@@ -713,12 +712,7 @@ Classification_SetParamUlongValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_CLF_Duration, TRUE)) {
-        pDmClsEntry->Duration = uValue;
-        ret = TRUE;
-    } else {
-        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
-    }
+    printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
 
     return ret;
 }

@@ -95,8 +95,8 @@
                         </parameter>
                         <parameter>
                             <name>Duration</name>
-                            <type>unsignedInt[1:]</type>
-                            <syntax>uint32</syntax>
+                            <type>string(64)</type>
+                            <syntax>string</syntax>
                             <writable>true</writable>
                         </parameter>
                         <parameter>

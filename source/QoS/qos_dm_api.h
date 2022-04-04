@@ -85,7 +85,7 @@ typedef struct {
     INT TcpFlags;
     INT TcpPsh;
 
-    UINT Duration;
+    CHAR Duration[255];
 
     //Add Alias to type abstraction
     CHAR Alias[255];
