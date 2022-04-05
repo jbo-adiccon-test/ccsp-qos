@@ -274,7 +274,7 @@ int apply_qos_class(Classification_t *pClf) {
     qos_class_t qclf = {0};
 
     if (!pClf->Enable) {
-        qos_removeOneClass();
+        qos_removeAllClasses();
         return -2;
     }
 
