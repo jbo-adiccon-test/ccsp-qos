@@ -277,8 +277,8 @@ Classification_GetParamStringValue
     }
         //Add Alias Param out of TR-181
     else if (AnscEqualString(pParamName, DM_CLF_Alias, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Alias);
-        AnscCopyString(pValue, pDmClsEntry->Alias);
+        //GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Alias);
+        AnscCopyString("ClassPrio", pDmClsEntry->Alias);
     } else if (AnscEqualString(pParamName, DM_CLF_DestMask, TRUE)) {
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->DestMask);
         AnscCopyString(pValue, pDmClsEntry->DestMask);
