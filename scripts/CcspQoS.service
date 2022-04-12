@@ -1,8 +1,11 @@
 [Unit]
 Description=CcspQoS service
+After=CcspCrSsp.service CcspPandMSsp.service
 [Service]
-Type=simple
-ExecStart=/usr/bin/ccsp_qos -subsys eRT.
+Type=forking
+WorkingDirectory=/usr/ccsp/qos
+Environment="Subsys=eRT."
+ExecStart=/usr/bin/ccsp_qos -subsys $Subsys
 ExecStop=/bin/sh -c ' echo "Ccsp QoS service stopped" '
 [Install]
 WantedBy=multi-user.target
