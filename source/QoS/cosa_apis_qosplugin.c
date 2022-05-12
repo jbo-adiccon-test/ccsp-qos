@@ -298,6 +298,12 @@ Classification_GetParamStringValue
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceOut);
         AnscCopyString(pValue, pDmClsEntry
                 ->IfaceOut);
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_ChainName, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->ChainName);
+        AnscCopyString(pValue, pDmClsEntry
+                ->ChainName);
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
         return -1;
