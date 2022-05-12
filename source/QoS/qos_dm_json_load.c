@@ -170,38 +170,8 @@ static void json_parse_Classification(uint32_t index, cJSON *pClassificationObj)
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_Enable)))
         newClassification.Enable = vsItem->valueint;
 
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_DestIP)))
-        strncpy(newClassification.DestIP, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.DestIP));
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_DestMask)))
-        strncpy(newClassification.DestMask, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.DestMask));
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_SourcePort)))
-        newClassification.SourcePort = vsItem->valueint;
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_SourcePortRangeMax)))
-        newClassification.SourcePortRangeMax = vsItem->valueint;
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_DestPort)))
-        newClassification.DestPort = vsItem->valueint;
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_DestPortRangeMax)))
-        newClassification.DestPortRangeMax = vsItem->valueint;
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_Protocol)))
-        newClassification.Protocol = vsItem->valueint;
-
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_DSCPMark)))
         newClassification.DSCPMark = vsItem->valueint;
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_TrafficClass)))
-        newClassification.TrafficClass = vsItem->valueint;
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_SourceIP)))
-        strncpy(newClassification.SourceIP, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.SourceIP));
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_SourceMask)))
-        strncpy(newClassification.SourceMask, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.SourceMask));
 
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_SourceMACAddress)))
         strncpy(newClassification.SourceMACAddress, vsItem->valuestring,
@@ -215,12 +185,6 @@ static void json_parse_Classification(uint32_t index, cJSON *pClassificationObj)
 
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_IfaceOut)))
         strncpy(newClassification.IfaceOut, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.IfaceOut));
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_TcpFlags)))
-        newClassification.TcpFlags = vsItem->valueint;
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_TcpPsh)))
-        newClassification.TcpPsh = vsItem->valueint;
 
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_Alias)))
         strncpy(newClassification.Alias, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.Alias));

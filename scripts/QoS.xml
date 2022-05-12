@@ -100,74 +100,14 @@
                             <writable>true</writable>
                         </parameter>
                         <parameter>
-                            <name>DestIP</name>
-                            <type>string(45)</type>
-                            <syntax>string</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
-                            <name>DestMask</name>
-                            <type>string(49)</type>
-                            <syntax>string</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
-                            <name>SourceIP</name>
-                            <type>string(45)</type>
-                            <syntax>string</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
-                            <name>SourceMask</name>
-                            <type>string(49)</type>
-                            <syntax>string</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
-                            <name>SourcePort</name>
-                            <type>int[-1:65535]</type>
-                            <syntax>int</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
                             <name>SourceMACAddress</name>
                             <type>string(49)</type>
                             <syntax>string</syntax>
                             <writable>true</writable>
                         </parameter>
                         <parameter>
-                            <name>SourcePortRangeMax</name>
-                            <type>int[-1:65535]</type>
-                            <syntax>int</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
-                            <name>DestPort</name>
-                            <type>int[-1:65535]</type>
-                            <syntax>int</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
-                            <name>DestPortRangeMax</name>
-                            <type>int[-1:65535]</type>
-                            <syntax>int</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
-                            <name>Protocol</name>
-                            <type>int[-1:255]</type>
-                            <syntax>int</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
                             <name>DSCPMark</name>
                             <type>int[-2:]</type>
-                            <syntax>int</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
-                            <name>TrafficClass</name>
-                            <type>int[-1:]</type>
                             <syntax>int</syntax>
                             <writable>true</writable>
                         </parameter>
@@ -187,18 +127,6 @@
                             <name>IfaceOut</name>
                             <type>string(16)</type>
                             <syntax>string</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
-                            <name>TcpFlags</name>
-                            <type>int</type>
-                            <syntax>int</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
-                            <name>TcpPsh</name>
-                            <type>int</type>
-                            <syntax>int</syntax>
                             <writable>true</writable>
                         </parameter>
                     </parameters>

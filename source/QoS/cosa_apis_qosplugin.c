@@ -268,44 +268,46 @@ Classification_GetParamStringValue
         return -1;
     }
 
-    if (AnscEqualString(pParamName, DM_CLF_DestIP, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->DestIP);
-        AnscCopyString(pValue, pDmClsEntry->DestIP);
-    } else if (AnscEqualString(pParamName, DM_CLF_Duration, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Duration);
-        AnscCopyString(pValue, pDmClsEntry->Duration);
-    }
-        //Add Alias Param out of TR-181
-    else if (AnscEqualString(pParamName, DM_CLF_Alias, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Alias);
-        AnscCopyString(pValue, pDmClsEntry->Alias);
-    } else if (AnscEqualString(pParamName, DM_CLF_DestMask, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->DestMask);
-        AnscCopyString(pValue, pDmClsEntry->DestMask);
-    } else if (AnscEqualString(pParamName, DM_CLF_SourceIP, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->SourceIP);
-        AnscCopyString(pValue, pDmClsEntry->SourceIP);
-    } else if (AnscEqualString(pParamName, DM_CLF_SourceMask, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->SourceMask);
-        AnscCopyString(pValue, pDmClsEntry->SourceMask);
-    } else if (AnscEqualString(pParamName, DM_CLF_SourceMACAddress, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->SourceMACAddress);
-        AnscCopyString(pValue, pDmClsEntry->SourceMACAddress);
-    } else if (AnscEqualString(pParamName, DM_CLF_ChainName, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->ChainName);
-        AnscCopyString(pValue, pDmClsEntry->ChainName);
-    } else if (AnscEqualString(pParamName, DM_CLF_IfaceIn, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceIn);
-        AnscCopyString(pValue, pDmClsEntry->IfaceIn);
-    } else if (AnscEqualString(pParamName, DM_CLF_IfaceOut, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceOut);
-        AnscCopyString(pValue, pDmClsEntry->IfaceOut);
-    } else {
-        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
-        return -1;
-    }
+}
 
-    return 0;
+else if (
+AnscEqualString(pParamName,
+DM_CLF_Duration, TRUE)) {
+GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Duration);
+AnscCopyString(pValue, pDmClsEntry
+->Duration);
+}
+//Add Alias Param out of TR-181
+else if (
+AnscEqualString(pParamName,
+DM_CLF_Alias, TRUE)) {
+GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Alias);
+AnscCopyString(pValue, pDmClsEntry
+->Alias);
+} else if (
+AnscEqualString(pParamName,
+DM_CLF_SourceMACAddress, TRUE)) {
+GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->SourceMACAddress);
+AnscCopyString(pValue, pDmClsEntry
+->SourceMACAddress);
+} else if (
+AnscEqualString(pParamName,
+DM_CLF_IfaceIn, TRUE)) {
+GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceIn);
+AnscCopyString(pValue, pDmClsEntry
+->IfaceIn);
+} else if (
+AnscEqualString(pParamName,
+DM_CLF_IfaceOut, TRUE)) {
+GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceOut);
+AnscCopyString(pValue, pDmClsEntry
+->IfaceOut);
+} else {
+printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
+return -1;
+}
+
+return 0;
 }
 
 /**********************************************************************  
@@ -477,38 +479,21 @@ Classification_GetParamIntValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_CLF_SourcePort, TRUE)) {
-        *pInt = pDmClsEntry->SourcePort;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_SourcePortRangeMax, TRUE)) {
-        *pInt = pDmClsEntry->SourcePortRangeMax;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_DestPort, TRUE)) {
-        *pInt = pDmClsEntry->DestPort;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_DestPortRangeMax, TRUE)) {
-        *pInt = pDmClsEntry->DestPortRangeMax;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_Protocol, TRUE)) {
-        *pInt = pDmClsEntry->Protocol;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_DSCPMark, TRUE)) {
-        *pInt = pDmClsEntry->DSCPMark;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_TrafficClass, TRUE)) {
-        *pInt = pDmClsEntry->TrafficClass;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_TcpFlags, TRUE)) {
-        *pInt = pDmClsEntry->TcpFlags;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_TcpPsh, TRUE)) {
-        *pInt = pDmClsEntry->TcpPsh;
-        ret = TRUE;
-    } else {
-        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
-    }
 
-    return ret;
+}
+
+else if (
+AnscEqualString(pParamName,
+DM_CLF_DSCPMark, TRUE)) {
+*
+pInt = pDmClsEntry->DSCPMark;
+ret = TRUE;
+} else {
+printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
+}
+
+return
+ret;
 }
 
 /**********************************************************************  
@@ -562,41 +547,50 @@ Classification_SetParamStringValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_CLF_DestIP, TRUE)) {
-        AnscCopyString(pDmClsEntry->DestIP, pString);
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_Duration, TRUE)) {
-        AnscCopyString(pDmClsEntry->Duration, pString);
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_Alias, TRUE)) {
-        AnscCopyString(pDmClsEntry->Alias, "ClassPrio");
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_DestMask, TRUE)) {
-        AnscCopyString(pDmClsEntry->DestMask, pString);
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_SourceIP, TRUE)) {
-        AnscCopyString(pDmClsEntry->SourceIP, pString);
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_SourceMask, TRUE)) {
-        AnscCopyString(pDmClsEntry->SourceMask, pString);
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_SourceMACAddress, TRUE)) {
-        AnscCopyString(pDmClsEntry->SourceMACAddress, pString);
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_ChainName, TRUE)) {
-        AnscCopyString(pDmClsEntry->ChainName, pString);
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_IfaceIn, TRUE)) {
-        AnscCopyString(pDmClsEntry->IfaceIn, pString);
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_IfaceOut, TRUE)) {
-        AnscCopyString(pDmClsEntry->IfaceOut, pString);
-        ret = TRUE;
-    } else {
-        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
-    }
+}
 
-    return ret;
+else if (
+AnscEqualString(pParamName,
+DM_CLF_Duration, TRUE)) {
+AnscCopyString(pDmClsEntry
+->Duration, pString);
+ret = TRUE;
+} else if (
+AnscEqualString(pParamName,
+DM_CLF_Alias, TRUE)) {
+AnscCopyString(pDmClsEntry
+->Alias, "ClassPrio");
+ret = TRUE;
+} else if (
+AnscEqualString(pParamName,
+DM_CLF_SourceMACAddress, TRUE)) {
+AnscCopyString(pDmClsEntry
+->SourceMACAddress, pString);
+ret = TRUE;
+} else if (
+AnscEqualString(pParamName,
+DM_CLF_ChainName, TRUE)) {
+AnscCopyString(pDmClsEntry
+->ChainName, pString);
+ret = TRUE;
+} else if (
+AnscEqualString(pParamName,
+DM_CLF_IfaceIn, TRUE)) {
+AnscCopyString(pDmClsEntry
+->IfaceIn, pString);
+ret = TRUE;
+} else if (
+AnscEqualString(pParamName,
+DM_CLF_IfaceOut, TRUE)) {
+AnscCopyString(pDmClsEntry
+->IfaceOut, pString);
+ret = TRUE;
+} else {
+printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
+}
+
+return
+ret;
 }
 
 /**********************************************************************  
@@ -768,32 +762,8 @@ Classification_SetParamIntValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_CLF_SourcePort, TRUE)) {
-        pDmClsEntry->SourcePort = iValue;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_SourcePortRangeMax, TRUE)) {
-        pDmClsEntry->SourcePortRangeMax = iValue;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_DestPort, TRUE)) {
-        pDmClsEntry->DestPort = iValue;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_DestPortRangeMax, TRUE)) {
-        pDmClsEntry->DestPortRangeMax = iValue;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_Protocol, TRUE)) {
-        pDmClsEntry->Protocol = iValue;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_DSCPMark, TRUE)) {
+    if (AnscEqualString(pParamName, DM_CLF_DSCPMark, TRUE)) {
         pDmClsEntry->DSCPMark = iValue;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_TrafficClass, TRUE)) {
-        pDmClsEntry->TrafficClass = iValue;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_TcpFlags, TRUE)) {
-        pDmClsEntry->TcpFlags = iValue;
-        ret = TRUE;
-    } else if (AnscEqualString(pParamName, DM_CLF_TcpPsh, TRUE)) {
-        pDmClsEntry->TcpPsh = iValue;
         ret = TRUE;
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);

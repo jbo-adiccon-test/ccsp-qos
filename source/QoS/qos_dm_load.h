@@ -48,23 +48,11 @@ typedef union {
 
 #define DM_CLF                      "Classification"
 #define DM_CLF_Enable               "Enable"
-#define DM_CLF_DestIP               "DestIP"
-#define DM_CLF_DestMask             "DestMask"
-#define DM_CLF_SourceIP             "SourceIP"
-#define DM_CLF_SourceMask           "SourceMask"
-#define DM_CLF_SourcePort           "SourcePort"
 #define DM_CLF_SourceMACAddress     "SourceMACAddress"
-#define DM_CLF_SourcePortRangeMax   "SourcePortRangeMax"
-#define DM_CLF_DestPort             "DestPort"
-#define DM_CLF_DestPortRangeMax     "DestPortRangeMax"
-#define DM_CLF_Protocol             "Protocol"
 #define DM_CLF_DSCPMark             "DSCPMark"
-#define DM_CLF_TrafficClass         "TrafficClass"
 #define DM_CLF_ChainName            "ChainName"
 #define DM_CLF_IfaceIn              "IfaceIn"
 #define DM_CLF_IfaceOut             "IfaceOut"
-#define DM_CLF_TcpFlags             "TcpFlags"
-#define DM_CLF_TcpPsh               "TcpPsh"
 #define DM_CLF_Duration             "Duration"
 
 //Add own Alias out of TR-181

@@ -42,23 +42,11 @@ cJSON *json_create_object(const char *pTableName) {
     if (!strcmp(pTableName, DM_CLF)) {
         clf = cJSON_CreateObject();
         cJSON_AddItemToObject(clf, DM_CLF_Enable, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_DestIP, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_DestMask, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_SourceIP, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_SourceMask, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_SourcePort, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_SourceMACAddress, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_SourcePortRangeMax, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_DestPort, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_DestPortRangeMax, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_Protocol, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_DSCPMark, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_TrafficClass, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_ChainName, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_IfaceIn, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_IfaceOut, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_TcpFlags, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_TcpPsh, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_Alias, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_Duration, cJSON_CreateString(""));
     } else if (!strcmp(pTableName, DM_QUEUE)) {
@@ -195,23 +183,11 @@ bool qos_DmSaveQoS(QoS_t *pQos) {
             pClf = V_GET(pQos->cl, Classification_t*, i);
 
             cJSON_AddItemToObject(cl, DM_CLF_Enable, cJSON_CreateBool(pClf->Enable));
-            cJSON_AddItemToObject(cl, DM_CLF_DestIP, cJSON_CreateString(pClf->DestIP));
-            cJSON_AddItemToObject(cl, DM_CLF_DestMask, cJSON_CreateString(pClf->DestMask));
-            cJSON_AddItemToObject(cl, DM_CLF_SourcePort, cJSON_CreateNumber(pClf->SourcePort));
-            cJSON_AddItemToObject(cl, DM_CLF_SourcePortRangeMax, cJSON_CreateNumber(pClf->SourcePortRangeMax));
-            cJSON_AddItemToObject(cl, DM_CLF_DestPort, cJSON_CreateNumber(pClf->DestPort));
-            cJSON_AddItemToObject(cl, DM_CLF_DestPortRangeMax, cJSON_CreateNumber(pClf->DestPortRangeMax));
-            cJSON_AddItemToObject(cl, DM_CLF_Protocol, cJSON_CreateNumber(pClf->Protocol));
-            cJSON_AddItemToObject(cl, DM_CLF_DSCPMark, cJSON_CreateNumber(pClf->DSCPMark));
-            cJSON_AddItemToObject(cl, DM_CLF_TrafficClass, cJSON_CreateNumber(pClf->TrafficClass));
-            cJSON_AddItemToObject(cl, DM_CLF_SourceIP, cJSON_CreateString(pClf->SourceIP));
-            cJSON_AddItemToObject(cl, DM_CLF_SourceMask, cJSON_CreateString(pClf->SourceMask));
             cJSON_AddItemToObject(cl, DM_CLF_SourceMACAddress, cJSON_CreateString(pClf->SourceMACAddress));
+            cJSON_AddItemToObject(cl, DM_CLF_DSCPMark, cJSON_CreateNumber(pClf->DSCPMark));
             cJSON_AddItemToObject(cl, DM_CLF_ChainName, cJSON_CreateString(pClf->ChainName));
             cJSON_AddItemToObject(cl, DM_CLF_IfaceIn, cJSON_CreateString(pClf->IfaceIn));
             cJSON_AddItemToObject(cl, DM_CLF_IfaceOut, cJSON_CreateString(pClf->IfaceOut));
-            cJSON_AddItemToObject(cl, DM_CLF_TcpFlags, cJSON_CreateNumber(pClf->TcpFlags));
-            cJSON_AddItemToObject(cl, DM_CLF_TcpPsh, cJSON_CreateNumber(pClf->TcpPsh));
             cJSON_AddItemToObject(cl, DM_CLF_Alias, cJSON_CreateString(pClf->Alias));
             cJSON_AddItemToObject(cl, DM_CLF_Duration, cJSON_CreateString(pClf->Duration));
         }

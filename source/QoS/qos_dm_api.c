@@ -248,23 +248,11 @@ ANSC_STATUS qos_QueueItemIndex(Queue_t *pClass, ULONG *pEntryIdx) {
 
 void fill_qos_class(qos_class_t *pHalClf, const Classification_t *pClf, ulong idx) {
     pHalClf->id = idx;
-    pHalClf->traffic_class = pClf->TrafficClass;
-    strncpy(pHalClf->ip_src_addr, pClf->SourceIP, sizeof(pHalClf->ip_src_addr));
-    pHalClf->ip_src_mask = atoi(pClf->SourceMask);
-    strncpy(pHalClf->ip_dst_addr, pClf->DestIP, sizeof(pHalClf->ip_dst_addr));
-    pHalClf->ip_dst_mask = atoi(pClf->DestMask);
-    pHalClf->protocol = pClf->Protocol;
-    pHalClf->port_src_range_start = pClf->SourcePort;
-    pHalClf->port_src_range_end = pClf->SourcePortRangeMax;
-    pHalClf->port_dst_range_start = pClf->DestPort;
-    pHalClf->port_dst_range_end = pClf->DestPortRangeMax;
     strncpy(pHalClf->mac_src_addr, pClf->SourceMACAddress, sizeof(pHalClf->mac_src_addr));
     pHalClf->dscp_mark = pClf->DSCPMark;
     strncpy(pHalClf->chain_name, pClf->ChainName, sizeof(pHalClf->chain_name));
     strncpy(pHalClf->iface_in, pClf->IfaceIn, sizeof(pHalClf->iface_in));
     strncpy(pHalClf->iface_out, pClf->IfaceOut, sizeof(pHalClf->iface_out));
-    pHalClf->tcp_flags = pClf->TcpFlags;
-    pHalClf->tcp_psh = pClf->TcpPsh;
     strncpy(pHalClf->alias, pClf->Alias, sizeof(pHalClf->alias));
     strncpy(pHalClf->duration, pClf->Duration, sizeof(pHalClf->duration));
 }

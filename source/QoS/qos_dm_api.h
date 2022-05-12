@@ -65,29 +65,14 @@ typedef struct {
 
 typedef struct {
     BOOL Enable;
-    CHAR DestIP[45];
-    CHAR DestMask[49];
-    CHAR SourceIP[45];
-    CHAR SourceMask[49];
-    INT SourcePort;
     CHAR SourceMACAddress[17];
-    INT SourcePortRangeMax;
-    INT DestPort;
-    INT DestPortRangeMax;
-    INT Protocol;
     INT DSCPMark;
-    INT TrafficClass;
 
-    // Custom
+    //Add Alias to type abstraction
     CHAR ChainName[16];
     CHAR IfaceIn[16];
     CHAR IfaceOut[16];
-    INT TcpFlags;
-    INT TcpPsh;
-
     CHAR Duration[255];
-
-    //Add Alias to type abstraction
     CHAR Alias[255];
 
     // Service member
