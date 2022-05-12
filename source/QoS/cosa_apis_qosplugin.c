@@ -266,48 +266,44 @@ Classification_GetParamStringValue
     if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return -1;
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_Duration, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Duration);
+        AnscCopyString(pValue, pDmClsEntry
+                ->Duration);
+    }
+//Add Alias Param out of TR-181
+    else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_Alias, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Alias);
+        AnscCopyString(pValue, pDmClsEntry
+                ->Alias);
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_SourceMACAddress, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->SourceMACAddress);
+        AnscCopyString(pValue, pDmClsEntry
+                ->SourceMACAddress);
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_IfaceIn, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceIn);
+        AnscCopyString(pValue, pDmClsEntry
+                ->IfaceIn);
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_IfaceOut, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceOut);
+        AnscCopyString(pValue, pDmClsEntry
+                ->IfaceOut);
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
+        return -1;
     }
 
-}
-
-if (
-AnscEqualString(pParamName,
-DM_CLF_Duration, TRUE)) {
-GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Duration);
-AnscCopyString(pValue, pDmClsEntry
-->Duration);
-}
-//Add Alias Param out of TR-181
-else if (
-AnscEqualString(pParamName,
-DM_CLF_Alias, TRUE)) {
-GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Alias);
-AnscCopyString(pValue, pDmClsEntry
-->Alias);
-} else if (
-AnscEqualString(pParamName,
-DM_CLF_SourceMACAddress, TRUE)) {
-GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->SourceMACAddress);
-AnscCopyString(pValue, pDmClsEntry
-->SourceMACAddress);
-} else if (
-AnscEqualString(pParamName,
-DM_CLF_IfaceIn, TRUE)) {
-GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceIn);
-AnscCopyString(pValue, pDmClsEntry
-->IfaceIn);
-} else if (
-AnscEqualString(pParamName,
-DM_CLF_IfaceOut, TRUE)) {
-GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceOut);
-AnscCopyString(pValue, pDmClsEntry
-->IfaceOut);
-} else {
-printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
-return -1;
-}
-
-return 0;
+    return 0;
 }
 
 /**********************************************************************  
