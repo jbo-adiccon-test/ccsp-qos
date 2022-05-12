@@ -270,7 +270,7 @@ Classification_GetParamStringValue
 
 }
 
-else if (
+if (
 AnscEqualString(pParamName,
 DM_CLF_Duration, TRUE)) {
 GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Duration);
@@ -415,7 +415,7 @@ Classification_GetParamUlongValue
         return ret;
     }
 
-    Classification_t *pDmClsEntry = (Queue_t *) hInsContext;
+    Classification_t *pDmClsEntry = (Classification_t *) hInsContext;
 
     if (pDmClsEntry == NULL) {
         printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
@@ -477,23 +477,17 @@ Classification_GetParamIntValue
     if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return ret;
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_DSCPMark, TRUE)) {
+        *
+                pInt = pDmClsEntry->DSCPMark;
+        ret = TRUE;
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
-
-}
-
-else if (
-AnscEqualString(pParamName,
-DM_CLF_DSCPMark, TRUE)) {
-*
-pInt = pDmClsEntry->DSCPMark;
-ret = TRUE;
-} else {
-printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
-}
-
-return
-ret;
+    return ret;
 }
 
 /**********************************************************************  
@@ -545,52 +539,48 @@ Classification_SetParamStringValue
     if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return ret;
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_Duration, TRUE)) {
+        AnscCopyString(pDmClsEntry
+                               ->Duration, pString);
+        ret = TRUE;
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_Alias, TRUE)) {
+        AnscCopyString(pDmClsEntry
+                               ->Alias, "ClassPrio");
+        ret = TRUE;
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_SourceMACAddress, TRUE)) {
+        AnscCopyString(pDmClsEntry
+                               ->SourceMACAddress, pString);
+        ret = TRUE;
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_ChainName, TRUE)) {
+        AnscCopyString(pDmClsEntry
+                               ->ChainName, pString);
+        ret = TRUE;
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_IfaceIn, TRUE)) {
+        AnscCopyString(pDmClsEntry
+                               ->IfaceIn, pString);
+        ret = TRUE;
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_IfaceOut, TRUE)) {
+        AnscCopyString(pDmClsEntry
+                               ->IfaceOut, pString);
+        ret = TRUE;
+    } else {
+        printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
     }
 
-}
-
-else if (
-AnscEqualString(pParamName,
-DM_CLF_Duration, TRUE)) {
-AnscCopyString(pDmClsEntry
-->Duration, pString);
-ret = TRUE;
-} else if (
-AnscEqualString(pParamName,
-DM_CLF_Alias, TRUE)) {
-AnscCopyString(pDmClsEntry
-->Alias, "ClassPrio");
-ret = TRUE;
-} else if (
-AnscEqualString(pParamName,
-DM_CLF_SourceMACAddress, TRUE)) {
-AnscCopyString(pDmClsEntry
-->SourceMACAddress, pString);
-ret = TRUE;
-} else if (
-AnscEqualString(pParamName,
-DM_CLF_ChainName, TRUE)) {
-AnscCopyString(pDmClsEntry
-->ChainName, pString);
-ret = TRUE;
-} else if (
-AnscEqualString(pParamName,
-DM_CLF_IfaceIn, TRUE)) {
-AnscCopyString(pDmClsEntry
-->IfaceIn, pString);
-ret = TRUE;
-} else if (
-AnscEqualString(pParamName,
-DM_CLF_IfaceOut, TRUE)) {
-AnscCopyString(pDmClsEntry
-->IfaceOut, pString);
-ret = TRUE;
-} else {
-printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
-}
-
-return
-ret;
+    return
+            ret;
 }
 
 /**********************************************************************  
@@ -699,7 +689,7 @@ Classification_SetParamUlongValue
         return ret;
     }
 
-    Classification_t *pDmClsEntry = (Queue_t *) hInsContext;
+    Classification_t *pDmClsEntry = (Classification_t *) hInsContext;
 
     if (pDmClsEntry == NULL) {
         printf("%s: (Queue_t*)hInsContext == NULL\n", __func__);
