@@ -65,6 +65,7 @@ typedef struct {
 
 typedef struct {
     BOOL Enable;
+    UINT Id
     CHAR SourceMACAddress[17];
     INT DSCPMark;
 

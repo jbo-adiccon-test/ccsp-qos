@@ -247,6 +247,7 @@ ANSC_STATUS qos_QueueItemIndex(Queue_t *pClass, ULONG *pEntryIdx) {
 }
 
 void fill_qos_class(qos_class_t *pHalClf, const Classification_t *pClf, ulong idx) {
+    idx = idx + 1;
     pHalClf->id = idx;
     strncpy(pHalClf->mac_src_addr, pClf->SourceMACAddress, sizeof(pHalClf->mac_src_addr));
     pHalClf->dscp_mark = pClf->DSCPMark;
