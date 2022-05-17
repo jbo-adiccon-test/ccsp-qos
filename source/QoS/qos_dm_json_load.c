@@ -193,7 +193,7 @@ static void json_parse_Classification(uint32_t index, cJSON *pClassificationObj)
         strncpy(newClassification.Duration, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.Duration));
 
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_Id)))
-        strncpy(newClassification.Id, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.Id));
+        newClassification.Id = vsItem->valueint;
 
     qos_ClassificationAddEntry(&newClassification);
 }
