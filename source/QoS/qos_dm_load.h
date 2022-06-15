@@ -54,6 +54,7 @@ typedef union {
 #define DM_CLF_IfaceIn              "IfaceIn"
 #define DM_CLF_IfaceOut             "IfaceOut"
 #define DM_CLF_Duration             "Duration"
+#define DM_CLF_X_DT_Expiration      "X_DT_Expiration"
 #define DM_CLF_Id                   "Id"
 
 //Add own Alias out of TR-181

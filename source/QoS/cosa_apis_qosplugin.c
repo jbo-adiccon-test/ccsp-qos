@@ -273,6 +273,14 @@ Classification_GetParamStringValue
         AnscCopyString(pValue, pDmClsEntry
                 ->Duration);
     }
+// Add X_DT_Expiration Parameter
+    else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_X_DT_Expiration, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->X_DT_Expiration);
+        AnscCopyString(pValue, pDmClsEntry
+                ->X_DT_Expiration);
+    }
 //Add Alias Param out of TR-181
     else if (
             AnscEqualString(pParamName,
@@ -546,6 +554,12 @@ Classification_SetParamStringValue
                             DM_CLF_Duration, TRUE)) {
         AnscCopyString(pDmClsEntry
                                ->Duration, pString);
+        ret = TRUE;
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_X_DT_Expiration, TRUE)) {
+        AnscCopyString(pDmClsEntry
+                               ->X_DT_Expiration, pString);
         ret = TRUE;
     } else if (
             AnscEqualString(pParamName,

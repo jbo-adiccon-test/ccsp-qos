@@ -74,6 +74,7 @@ typedef struct {
     CHAR IfaceIn[16];
     CHAR IfaceOut[16];
     CHAR Duration[255];
+    CHAR X_DT_Expiration[255];
     CHAR Alias[255];
 
     // Service member

@@ -25,6 +25,8 @@ struct qos_class {
     // --tcp-flags SYN,ACK,FIN,RST ACK except PSH
 
     char duration[64];
+    // Parameter to control duration of classification
+    char expiration[64];
 
     //Add Alias out of TR-181 for classification
     char alias[255];

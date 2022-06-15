@@ -256,6 +256,7 @@ void fill_qos_class(qos_class_t *pHalClf, const Classification_t *pClf, ulong id
     strncpy(pHalClf->iface_out, pClf->IfaceOut, sizeof(pHalClf->iface_out));
     strncpy(pHalClf->alias, pClf->Alias, sizeof(pHalClf->alias));
     strncpy(pHalClf->duration, pClf->Duration, sizeof(pHalClf->duration));
+    strncpy(pHalClf->expiration, pClf->X_DT_Expiration, sizeof(pHalClf->expiration));
 }
 
 int apply_qos_class(Classification_t *pClf) {

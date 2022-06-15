@@ -1,0 +1,131 @@
+Steps to ad parameter to Device.QoS.Classification.
+(1) Edit ccsp-qos/scripts/QoS.xml
+                <object>
+                    <name>Classification</name>
+                    <objectType>writableTable</objectType>
+                    <maxInstance>128</maxInstance>
+                    <functions>
+                        <func_IsUpdated>Classification_IsUpdated</func_IsUpdated>
+    	                .....
+                    </functions>
+                    <parameters>
+
+here we add under
+                        <parameter>
+                            <name>Duration</name>
+                            <type>string(64)</type>
+                            <syntax>string</syntax>
+                            <writable>true</writable>
+                        </parameter>           
+                        <parameter>
+                            <name>X_DT_Expiration</name>
+                            <type>string(64)</type>
+                            <syntax>string</syntax>
+                            <writable>true</writable>
+                        </parameter>           
+
+(2) edit cosa_apis_qosplugin.c 5 changes
+search for "Duration" and see what needs to be added:
+at Classification_GetParamStringValue
+find line 266:
+    if (pDmClsEntry == NULL) {
+        printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
+        return -1;
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_Duration, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Duration);
+        AnscCopyString(pValue, pDmClsEntry
+                ->Duration);
+    }
+//Add Alias Param out of TR-181
+    else if (
+
+here we add just above //Add Alis Param ...
+// Add X_DT_Expiration Parameter
+    else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_X_DT_Expiration, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->X_DT_Expiration);
+        AnscCopyString(pValue, pDmClsEntry
+                ->X_DT_Expiration);
+    }
+
+
+and at Classification_SetParamStringValue
+find (now) line 543:
+    if (pDmClsEntry == NULL) {
+        printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
+        return ret;
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_Duration, TRUE)) {
+        AnscCopyString(pDmClsEntry
+                               ->Duration, pString);
+        ret = TRUE;
+    } else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_Alias, TRUE)) {
+
+and fill in addtional else if statement
+    else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_X_DT_Expiration, TRUE)) {
+        AnscCopyString(pDmClsEntry
+                               ->X_DT_Expiration, pString);
+        ret = TRUE;
+    }
+
+(3) edit /ccsp-qos/source/QoS/qos_dm_api.c 3 changes
+at void fill_qos_class line 249 add behind
+strncpy(pHalClf->duration, pClf->Duration, sizeof(pHalClf->duration));
+strncpy(pHalClf->expiration, pClf->X_DT_Expiration, sizeof(pHalClf->expiration));
+
+(4) edit /ccsp-qos/source/QoS/qos_dm_api.h 1 change
+at typedef struct {typedef struct { of Classification_t:
+below of 
+CHAR Duration[255];
+CHAR X_DT_Expiration[255];
+
+(5) edit /ccsp-qos/source/QoS/qos_dm_json_load.c 3 changes
+at static void json_parse_Classification line 161 add below of
+if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_Duration)))
+        strncpy(newClassification.Duration, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.Duration));
+
+if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_X_DT_Expiration)))
+        strncpy(newClassification.X_DT_Expiration, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.X_DT_Expiration));
+
+(6) edit /ccsp-qos/source/QoS/qos_dm_json_save.c 3 changes
+at cJSON *json_create_object line 39 add below
+cJSON_AddItemToObject(clf, DM_CLF_Duration, cJSON_CreateString(""));
+
+cJSON_AddItemToObject(clf, DM_CLF_X_DT_Expiration, cJSON_CreateString(""));
+
+at cJSON_AddItemToObject(root, DM_QOS, qos); now line 175 add below 
+cJSON_AddItemToObject(cl, DM_CLF_Duration, cJSON_CreateString(pClf->Duration));
+
+cJSON_AddItemToObject(cl, DM_CLF_X_DT_Expiration, cJSON_CreateString(pClf->X_DT_Expiration));
+
+(6) edit /ccsp-qos/source/QoS/qos_dm_load.h 2 changes add below
+#define DM_CLF_Duration             "Duration"
+
+#define DM_CLF_X_DT_Expiration             "X_DT_Expiration"
+
+
+(7) edit /ccsp-qos/source/QoS/hal/classification.h 1 change add below
+char duration[64];
+
+// Parameter to control duration of classification
+char expiration[64];
+
+(8) Im git hal-qos muss die Datei classification.h angepasst werden.
+edit /hal-qos/classification.hal
+
+add below
+char duration[64];
+
+char expiration[64];
+
+
+Die Klassen werden in diesem Schritt noch nicht angepasst.
+

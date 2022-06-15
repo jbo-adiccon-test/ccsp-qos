@@ -100,6 +100,12 @@
                             <writable>true</writable>
                         </parameter>
                         <parameter>
+                            <name>X_DT_Expiration</name>
+                            <type>string(64)</type>
+                            <syntax>string</syntax>
+                            <writable>true</writable>
+                        </parameter>                        
+                        <parameter>
                             <name>SourceMACAddress</name>
                             <type>string(49)</type>
                             <syntax>string</syntax>
