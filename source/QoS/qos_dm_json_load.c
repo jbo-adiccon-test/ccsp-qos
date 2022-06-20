@@ -177,15 +177,6 @@ static void json_parse_Classification(uint32_t index, cJSON *pClassificationObj)
         strncpy(newClassification.SourceMACAddress, vsItem->valuestring,
                 ARR_NUM_OF_ELEMS(newClassification.SourceMACAddress));
 
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_ChainName)))
-        strncpy(newClassification.ChainName, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.ChainName));
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_IfaceIn)))
-        strncpy(newClassification.IfaceIn, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.IfaceIn));
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_IfaceOut)))
-        strncpy(newClassification.IfaceOut, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.IfaceOut));
-
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_Alias)))
         strncpy(newClassification.Alias, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.Alias));
 
