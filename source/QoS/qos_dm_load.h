@@ -50,9 +50,6 @@ typedef union {
 #define DM_CLF_Enable               "Enable"
 #define DM_CLF_SourceMACAddress     "SourceMACAddress"
 #define DM_CLF_DSCPMark             "DSCPMark"
-#define DM_CLF_ChainName            "ChainName"
-#define DM_CLF_IfaceIn              "IfaceIn"
-#define DM_CLF_IfaceOut             "IfaceOut"
 #define DM_CLF_Duration             "Duration"
 #define DM_CLF_Id                   "Id"
 
