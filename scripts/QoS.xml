@@ -94,12 +94,6 @@
                             <writable>true</writable>
                         </parameter>
                         <parameter>
-                            <name>Duration</name>
-                            <type>string(64)</type>
-                            <syntax>string</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
                             <name>X_DT_Expiration</name>
                             <type>string(64)</type>
                             <syntax>string</syntax>

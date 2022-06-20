@@ -73,7 +73,6 @@ typedef struct {
     CHAR ChainName[16];
     CHAR IfaceIn[16];
     CHAR IfaceOut[16];
-    CHAR Duration[255];
     CHAR X_DT_Expiration[255];
     CHAR Alias[255];
 

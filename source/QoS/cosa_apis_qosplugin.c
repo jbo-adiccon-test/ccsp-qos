@@ -266,12 +266,6 @@ Classification_GetParamStringValue
     if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return -1;
-    } else if (
-            AnscEqualString(pParamName,
-                            DM_CLF_Duration, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Duration);
-        AnscCopyString(pValue, pDmClsEntry
-                ->Duration);
     }
 // Add X_DT_Expiration Parameter
     else if (
@@ -549,12 +543,6 @@ Classification_SetParamStringValue
     if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return ret;
-    } else if (
-            AnscEqualString(pParamName,
-                            DM_CLF_Duration, TRUE)) {
-        AnscCopyString(pDmClsEntry
-                               ->Duration, pString);
-        ret = TRUE;
     } else if (
             AnscEqualString(pParamName,
                             DM_CLF_X_DT_Expiration, TRUE)) {
