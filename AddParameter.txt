@@ -129,3 +129,29 @@ char expiration[64];
 
 Die Klassen werden in diesem Schritt noch nicht angepasst.
 
+Step 2 Make use of X_DT_Expiration in hal-qos
+(A) Quick and Dirty: change assignment of object:
+timehandler.c no changes
+timehandler.h no changes
+classification.h no changes
+edit classification.c 
+(1) at int main line 390 add below
+strcpy(test_class1->duration, "20:25:59-27.05.2022");
+strcpy(test_class1->expiration, "20:25:59-27.05.2022");
+(2) at int qos_DurationClass(const qos_struct *obj))
+replace:
+if (*obj->data->duration != '\0') {
+        snprintf(clas_file, strlen(obj->str) + 32, "end: %s\n%s", obj->data->duration, obj->str);
+    } else {
+        snprintf(clas_file, strlen(obj->str) + 32, "end: %s\n%s", "inf", obj->str);
+    }
+
+with
+if (*obj->data->expiration != '\0') {
+        snprintf(clas_file, strlen(obj->str) + 32, "end: %s\n%s", obj->data->expiration, obj->str);
+    } else {
+        snprintf(clas_file, strlen(obj->str) + 32, "end: %s\n%s", "inf", obj->str);
+    }
+
+
+
