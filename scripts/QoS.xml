@@ -111,24 +111,6 @@
                             <syntax>int</syntax>
                             <writable>true</writable>
                         </parameter>
-                        <parameter>
-                            <name>ChainName</name>
-                            <type>string(16)</type>
-                            <syntax>string</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
-                            <name>IfaceIn</name>
-                            <type>string(16)</type>
-                            <syntax>string</syntax>
-                            <writable>true</writable>
-                        </parameter>
-                        <parameter>
-                            <name>IfaceOut</name>
-                            <type>string(16)</type>
-                            <syntax>string</syntax>
-                            <writable>true</writable>
-                        </parameter>
                     </parameters>
                 </object>
             </objects>
