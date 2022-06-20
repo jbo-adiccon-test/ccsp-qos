@@ -553,7 +553,7 @@ Classification_SetParamStringValue
             AnscEqualString(pParamName,
                             DM_CLF_Alias, TRUE)) {
         AnscCopyString(pDmClsEntry
-                               ->Alias, "ClassPrio");
+                               ->Alias, pString);
         ret = TRUE;
     } else if (
             AnscEqualString(pParamName,
