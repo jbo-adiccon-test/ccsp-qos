@@ -44,9 +44,6 @@ cJSON *json_create_object(const char *pTableName) {
         cJSON_AddItemToObject(clf, DM_CLF_Enable, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_SourceMACAddress, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_DSCPMark, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_ChainName, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_IfaceIn, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_IfaceOut, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_Alias, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_X_DT_Expiration, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_Id, cJSON_CreateString(""));
@@ -186,9 +183,6 @@ bool qos_DmSaveQoS(QoS_t *pQos) {
             cJSON_AddItemToObject(cl, DM_CLF_Enable, cJSON_CreateBool(pClf->Enable));
             cJSON_AddItemToObject(cl, DM_CLF_SourceMACAddress, cJSON_CreateString(pClf->SourceMACAddress));
             cJSON_AddItemToObject(cl, DM_CLF_DSCPMark, cJSON_CreateNumber(pClf->DSCPMark));
-            cJSON_AddItemToObject(cl, DM_CLF_ChainName, cJSON_CreateString(pClf->ChainName));
-            cJSON_AddItemToObject(cl, DM_CLF_IfaceIn, cJSON_CreateString(pClf->IfaceIn));
-            cJSON_AddItemToObject(cl, DM_CLF_IfaceOut, cJSON_CreateString(pClf->IfaceOut));
             cJSON_AddItemToObject(cl, DM_CLF_Alias, cJSON_CreateString(pClf->Alias));
             cJSON_AddItemToObject(cl, DM_CLF_X_DT_Expiration, cJSON_CreateString(pClf->X_DT_Expiration));
             cJSON_AddItemToObject(cl, DM_CLF_Id, cJSON_CreateNumber(pClf->Id));

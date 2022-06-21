@@ -69,10 +69,6 @@ typedef struct {
     CHAR SourceMACAddress[17];
     INT DSCPMark;
 
-    //Add Alias to type abstraction
-    CHAR ChainName[16];
-    CHAR IfaceIn[16];
-    CHAR IfaceOut[16];
     CHAR X_DT_Expiration[255];
     CHAR Alias[255];
 

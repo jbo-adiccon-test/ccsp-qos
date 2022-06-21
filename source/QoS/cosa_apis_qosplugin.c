@@ -288,24 +288,6 @@ Classification_GetParamStringValue
         GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->SourceMACAddress);
         AnscCopyString(pValue, pDmClsEntry
                 ->SourceMACAddress);
-    } else if (
-            AnscEqualString(pParamName,
-                            DM_CLF_IfaceIn, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceIn);
-        AnscCopyString(pValue, pDmClsEntry
-                ->IfaceIn);
-    } else if (
-            AnscEqualString(pParamName,
-                            DM_CLF_IfaceOut, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->IfaceOut);
-        AnscCopyString(pValue, pDmClsEntry
-                ->IfaceOut);
-    } else if (
-            AnscEqualString(pParamName,
-                            DM_CLF_ChainName, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->ChainName);
-        AnscCopyString(pValue, pDmClsEntry
-                ->ChainName);
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
         return -1;
@@ -560,24 +542,6 @@ Classification_SetParamStringValue
                             DM_CLF_SourceMACAddress, TRUE)) {
         AnscCopyString(pDmClsEntry
                                ->SourceMACAddress, pString);
-        ret = TRUE;
-    } else if (
-            AnscEqualString(pParamName,
-                            DM_CLF_ChainName, TRUE)) {
-        AnscCopyString(pDmClsEntry
-                               ->ChainName, pString);
-        ret = TRUE;
-    } else if (
-            AnscEqualString(pParamName,
-                            DM_CLF_IfaceIn, TRUE)) {
-        AnscCopyString(pDmClsEntry
-                               ->IfaceIn, pString);
-        ret = TRUE;
-    } else if (
-            AnscEqualString(pParamName,
-                            DM_CLF_IfaceOut, TRUE)) {
-        AnscCopyString(pDmClsEntry
-                               ->IfaceOut, pString);
         ret = TRUE;
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
