@@ -91,14 +91,14 @@
                             <name>Alias</name>
                             <type>string(255)</type>
                             <syntax>string</syntax>
-                            <writable>false</writable>
+                            <writable>true</writable>
                         </parameter>
                         <parameter>
-                            <name>Duration</name>
+                            <name>X_DT_Expiration</name>
                             <type>string(64)</type>
                             <syntax>string</syntax>
                             <writable>true</writable>
-                        </parameter>
+                        </parameter>                        
                         <parameter>
                             <name>SourceMACAddress</name>
                             <type>string(49)</type>

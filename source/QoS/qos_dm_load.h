@@ -50,7 +50,7 @@ typedef union {
 #define DM_CLF_Enable               "Enable"
 #define DM_CLF_SourceMACAddress     "SourceMACAddress"
 #define DM_CLF_DSCPMark             "DSCPMark"
-#define DM_CLF_Duration             "Duration"
+#define DM_CLF_X_DT_Expiration      "X_DT_Expiration"
 #define DM_CLF_Id                   "Id"
 
 //Add own Alias out of TR-181

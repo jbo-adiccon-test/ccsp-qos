@@ -251,8 +251,8 @@ void fill_qos_class(qos_class_t *pHalClf, const Classification_t *pClf, ulong id
     pHalClf->id = idx;
     strncpy(pHalClf->mac_src_addr, pClf->SourceMACAddress, sizeof(pHalClf->mac_src_addr));
     pHalClf->dscp_mark = pClf->DSCPMark;
+    strncpy(pHalClf->expiration, pClf->X_DT_Expiration, sizeof(pHalClf->expiration));
     strncpy(pHalClf->alias, pClf->Alias, sizeof(pHalClf->alias));
-    strncpy(pHalClf->duration, pClf->Duration, sizeof(pHalClf->duration));
 }
 
 int apply_qos_class(Classification_t *pClf) {

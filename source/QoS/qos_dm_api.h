@@ -69,7 +69,7 @@ typedef struct {
     CHAR SourceMACAddress[17];
     INT DSCPMark;
 
-    CHAR Duration[255];
+    CHAR X_DT_Expiration[255];
     CHAR Alias[255];
 
     // Service member
