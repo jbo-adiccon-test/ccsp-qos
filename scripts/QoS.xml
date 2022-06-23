@@ -38,7 +38,7 @@
                             <writable>true</writable>
                         </parameter>
                         <parameter>
-                            <name>Bandwidth</name>
+                            <name>X_DT_Bandwidth</name>
                             <type>unsignedInt[1:]</type>
                             <syntax>uint32</syntax>
                             <writable>true</writable>
