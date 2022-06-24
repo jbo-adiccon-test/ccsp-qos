@@ -51,7 +51,7 @@ cJSON *json_create_object(const char *pTableName) {
         queue = cJSON_CreateObject();
         cJSON_AddItemToObject(queue, DM_QUEUE_Enable, cJSON_CreateString(""));
         cJSON_AddItemToObject(queue, DM_QUEUE_Interface, cJSON_CreateString(""));
-        cJSON_AddItemToObject(queue, DM_QUEUE_Bandwidth, cJSON_CreateString(""));
+        cJSON_AddItemToObject(queue, DM_QUEUE_X_DT_Bandwidth, cJSON_CreateString(""));
         cJSON_AddItemToObject(queue, DM_QUEUE_Alias, cJSON_CreateString(""));
     }
 
@@ -200,7 +200,7 @@ bool qos_DmSaveQoS(QoS_t *pQos) {
 
             cJSON_AddItemToObject(qu, DM_QUEUE_Enable, cJSON_CreateBool(pQueue->Enable));
             cJSON_AddItemToObject(qu, DM_QUEUE_Interface, cJSON_CreateString(pQueue->Interface));
-            cJSON_AddItemToObject(qu, DM_QUEUE_Bandwidth, cJSON_CreateNumber(pQueue->Bandwidth));
+            cJSON_AddItemToObject(qu, DM_QUEUE_X_DT_Bandwidth, cJSON_CreateNumber(pQueue->X_DT_Bandwidth));
             cJSON_AddItemToObject(qu, DM_QUEUE_Alias, cJSON_CreateString(pQueue->Alias));
         }
     }

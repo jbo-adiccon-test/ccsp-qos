@@ -56,7 +56,7 @@ typedef struct {
     BOOL Enable;
     CHAR Interface[256];
 
-    UINT Bandwidth;
+    UINT X_DT_Bandwidth;
     CHAR Alias[256];
 
     // Service member

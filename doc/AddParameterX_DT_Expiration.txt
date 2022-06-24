@@ -113,6 +113,7 @@ cJSON_AddItemToObject(cl, DM_CLF_X_DT_Expiration, cJSON_CreateString(pClf->X_DT_
 
 
 (7) edit /ccsp-qos/source/QoS/hal/classification.h 1 change add below
+at struct qos_class {
 char duration[64];
 
 // Parameter to control duration of classification

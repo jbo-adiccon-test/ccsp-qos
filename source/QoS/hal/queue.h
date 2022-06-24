@@ -12,7 +12,6 @@ enum queue_alg {
 struct qos_queue {
     // Interface name
     char device_name[IFNAMSIZ];
-
     unsigned bandwidth;
     char alias[256];
 };

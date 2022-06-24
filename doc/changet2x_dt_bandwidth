@@ -1,0 +1,47 @@
+source: branch dev!
+
+(1) edit ccsp-qos/scripts/cosa_apis_qosplugin.c
+
+Lines:
+change at 
+1194    if (AnscEqualString(pParamName, DM_QUEUE_X_DT_Bandwidth, TRUE)) {
+1195        *puLong = pDmQueueEntry->X_DT_Bandwidth;
+
+1437     if (AnscEqualString(pParamName, DM_QUEUE_X_DT_Bandwidth, TRUE)) {
+1438     pDmQueueEntry->X_DT_Bandwidth = uValue;
+
+(2) ccsp-qos/scripts/edit qos_dm_api.c
+change in void fill_qos_queue
+82 pHalQu->bandwidth = pQu->X_DT_Bandwidth;
+we keep pHalQu
+
+change in void qos_QueueFillDefaults
+154   pQueue->X_DT_Bandwidth = 50;
+
+(3) edit ccsp-qos/scripts/qos_dm_api.h
+change in ttypedef struct {
+59 UINT X_DT_Bandwidth;
+
+(4) ccsp-qos/scripts/qos_dm_json_load.c
+207     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_X_DT_Bandwidth)))
+208        newQueue.X_DT_Bandwidth = vsItem->valueint;
+
+(5) ccsp-qos/scripts/qos_dm_json_save.c
+54         cJSON_AddItemToObject(queue, DM_QUEUE_X_DT_Bandwidth, cJSON_CreateString(""));
+203        cJSON_AddItemToObject(qu, DM_QUEUE_X_DT_Bandwidth, cJSON_CreateNumber(pQueue->X_DT_Bandwidth));
+
+(6) ccsp-qos/scripts/qos_dm_load.h
+46 #define DM_QUEUE_X_DT_Bandwidth     "X_DT_Bandwidth"
+
+
+(7) Edit ccsp-qos/scripts/QoS.xml
+in 
+<object>
+<name>Queue</name>
+change
+                        <parameter>
+                            <name>X_DT_Bandwidth</name>
+                            <type>unsignedInt[1:]</type>
+                            <syntax>uint32</syntax>
+                            <writable>true</writable>
+                        </parameter>

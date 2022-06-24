@@ -43,7 +43,7 @@ typedef union {
 #define DM_QUEUE                    "Queue"
 #define DM_QUEUE_Enable             "Enable"
 #define DM_QUEUE_Interface          "Interface"
-#define DM_QUEUE_Bandwidth          "Bandwidth"
+#define DM_QUEUE_X_DT_Bandwidth     "X_DT_Bandwidth"
 #define DM_QUEUE_Alias              "Alias"
 
 #define DM_CLF                      "Classification"

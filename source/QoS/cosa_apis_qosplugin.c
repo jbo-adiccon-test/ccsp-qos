@@ -1191,8 +1191,8 @@ Queue_GetParamUlongValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_QUEUE_Bandwidth, TRUE)) {
-        *puLong = pDmQueueEntry->Bandwidth;
+    if (AnscEqualString(pParamName, DM_QUEUE_X_DT_Bandwidth, TRUE)) {
+        *puLong = pDmQueueEntry->X_DT_Bandwidth;
         ret = TRUE;
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
@@ -1434,8 +1434,8 @@ Queue_SetParamUlongValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_QUEUE_Bandwidth, TRUE)) {
-        pDmQueueEntry->Bandwidth = uValue;
+    if (AnscEqualString(pParamName, DM_QUEUE_X_DT_Bandwidth, TRUE)) {
+        pDmQueueEntry->X_DT_Bandwidth = uValue;
         ret = TRUE;
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
