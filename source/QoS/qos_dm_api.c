@@ -79,7 +79,7 @@ int parse_list_of_int(char *input, int *output, uint outputMaxSize) {
 void fill_qos_queue(qos_queue_t *pHalQu, const Queue_t *pQu) {
     strncpy(pHalQu->device_name, pQu->Interface, sizeof(pHalQu->device_name));
 
-    pHalQu->bandwidth = pQu->Bandwidth;
+    pHalQu->bandwidth = pQu->X_DT_Bandwidth;
     strncpy(pHalQu->alias, pQu->Alias, sizeof(pHalQu->alias));
 }
 
@@ -151,7 +151,7 @@ int qos_ApplyQueues() {
 
 void qos_QueueFillDefaults(Queue_t *pQueue) {
     pQueue->Enable = false;
-    pQueue->Bandwidth = 50;
+    pQueue->X_DT_Bandwidth = 50;
     strncpy(pQueue->Alias, "Cake_Queue", strlen("Cake_Queue"));
 }
 
@@ -251,8 +251,8 @@ void fill_qos_class(qos_class_t *pHalClf, const Classification_t *pClf, ulong id
     pHalClf->id = idx;
     strncpy(pHalClf->mac_src_addr, pClf->SourceMACAddress, sizeof(pHalClf->mac_src_addr));
     pHalClf->dscp_mark = pClf->DSCPMark;
+    strncpy(pHalClf->expiration, pClf->X_DT_Expiration, sizeof(pHalClf->expiration));
     strncpy(pHalClf->alias, pClf->Alias, sizeof(pHalClf->alias));
-    strncpy(pHalClf->duration, pClf->Duration, sizeof(pHalClf->duration));
 }
 
 int apply_qos_class(Classification_t *pClf) {

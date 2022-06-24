@@ -14,10 +14,8 @@ struct qos_class {
     int dscp_mark;
     // Source mac
     char mac_src_addr[CLASS_MAC_SIZE];
-    // --tcp-flags SYN,ACK,FIN,RST ACK except PSH
-
-    char duration[64];
-
+    // Parameter to control expiration of classification
+    char expiration[64];
     //Add Alias out of TR-181 for classification
     char alias[255];
 };

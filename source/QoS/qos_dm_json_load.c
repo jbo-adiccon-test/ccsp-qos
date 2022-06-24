@@ -179,9 +179,9 @@ static void json_parse_Classification(uint32_t index, cJSON *pClassificationObj)
 
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_Alias)))
         strncpy(newClassification.Alias, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.Alias));
-
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_Duration)))
-        strncpy(newClassification.Duration, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.Duration));
+    
+    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_X_DT_Expiration)))
+        strncpy(newClassification.X_DT_Expiration, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.X_DT_Expiration));
 
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_Id)))
         newClassification.Id = vsItem->valueint;
@@ -204,8 +204,8 @@ static void json_parse_Queue(uint32_t index, cJSON *pQueueObj) {
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_Interface)))
         strncpy(newQueue.Interface, vsItem->valuestring, ARR_NUM_OF_ELEMS(newQueue.Interface));
 
-    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_Bandwidth)))
-        newQueue.Bandwidth = vsItem->valueint;
+    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_X_DT_Bandwidth)))
+        newQueue.X_DT_Bandwidth = vsItem->valueint;
 
     if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pQueueObj, DM_QUEUE_Alias)))
         strncpy(newQueue.Alias, vsItem->valuestring, ARR_NUM_OF_ELEMS(newQueue.Alias));

@@ -1,0 +1,106 @@
+source/QoS/cosa_apis_qosplugin.c: 5 changes
+remove 
+ else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_Duration, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Duration);
+        AnscCopyString(pValue, pDmClsEntry
+                ->Duration);
+    }
+
+remove
+ else if (
+            AnscEqualString(pParamName,
+                            DM_CLF_Duration, TRUE)) {
+        AnscCopyString(pDmClsEntry
+                               ->Duration, pString);
+        ret = TRUE;
+    }
+
+source/QoS/qos_dm_api.c  5  changes
+
+remove
+strncpy(pHalClf->duration, pClf->Duration, sizeof(pHalClf->duration));
+
+source/QoS/qos_dm_api.h
+remove
+    CHAR Duration[255];
+
+
+source/QoS/qos_dm_json_load.c
+remove
+    if (NULL != (vsItem = cJSON_GetObjectItemCaseSensitive(pClassificationObj, DM_CLF_Duration)))
+        strncpy(newClassification.Duration, vsItem->valuestring, ARR_NUM_OF_ELEMS(newClassification.Duration));
+
+source/QoS/qos_dm_json_save.c
+remove
+        cJSON_AddItemToObject(clf, DM_CLF_Duration, cJSON_CreateString(""));
+
+        cJSON_AddItemToObject(cl, DM_CLF_Duration, cJSON_CreateString(pClf->Duration));
+
+source/QoS/qos_dm_load.h
+remove
+#define DM_CLF_Duration             "Duration"
+
+source/QoS/hal/classification.h
+remove
+char duration[64];
+
+
+hal-qos
+classification.c
+
+remove
+    //strcpy(test_class1->duration, "22:59:00-28.05.2022");
+        strcpy(test_class1->duration, "20:25:59-27.05.2022");
+change
+log_loc("SUCCESS: AddClass Expiration checker start");
+
+remove
+/** The following is temporary excluded
+    if (*obj->data->duration != '\0') {
+        snprintf(clas_file, strlen(obj->str) + 32, "end: %s\n%s", obj->data->duration, obj->str);
+    } else {
+        snprintf(clas_file, strlen(obj->str) + 32, "end: %s\n%s", "inf", obj->str);
+    }
+*/
+change
+    log_loc("SUCCESS: DurationClass Make expiration in class_%i persistent");
+
+    log_loc("FAIL: ExpirationChecker No class DIR in /usr/ccsp/qos/class/");
+
+    log_loc("SUCCESS: ExpirationClass Make expiration in class_%i persistent");
+
+int qos_ExpirationClass(const qos_struct *obj) {
+
+expiration_check()
+
+
+classification.h
+change
+int qos_ExpirationClass(const qos_struct *obj);
+remove 
+    char duration[64];
+
+
+timehandler.c
+change
+void expiration_check() {
+
+snprintf(str, 512, "%s%i%s", "dmcli eRT setv Device.QoS.Classification.", id, ".X_DT_Expiration string \"\"");
+log_loc("FAIL: ExpirationChecker No class DIR in /usr/ccsp/qos/class/");
+log_loc("INFO: Expiration Checker run:");
+log_loc("SUCCESS: ExpirationChecker Time check active");
+
+timehandler.h
+change
+void expiration_check();
+
+
+scripts/QoS.xml
+                        <parameter>
+                            <name>Duration</name>
+                            <type>string(64)</type>
+                            <syntax>string</syntax>
+                            <writable>true</writable>
+                        </parameter>

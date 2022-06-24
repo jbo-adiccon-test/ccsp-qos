@@ -45,13 +45,13 @@ cJSON *json_create_object(const char *pTableName) {
         cJSON_AddItemToObject(clf, DM_CLF_SourceMACAddress, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_DSCPMark, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_Alias, cJSON_CreateString(""));
-        cJSON_AddItemToObject(clf, DM_CLF_Duration, cJSON_CreateString(""));
+        cJSON_AddItemToObject(clf, DM_CLF_X_DT_Expiration, cJSON_CreateString(""));
         cJSON_AddItemToObject(clf, DM_CLF_Id, cJSON_CreateString(""));
     } else if (!strcmp(pTableName, DM_QUEUE)) {
         queue = cJSON_CreateObject();
         cJSON_AddItemToObject(queue, DM_QUEUE_Enable, cJSON_CreateString(""));
         cJSON_AddItemToObject(queue, DM_QUEUE_Interface, cJSON_CreateString(""));
-        cJSON_AddItemToObject(queue, DM_QUEUE_Bandwidth, cJSON_CreateString(""));
+        cJSON_AddItemToObject(queue, DM_QUEUE_X_DT_Bandwidth, cJSON_CreateString(""));
         cJSON_AddItemToObject(queue, DM_QUEUE_Alias, cJSON_CreateString(""));
     }
 
@@ -184,7 +184,7 @@ bool qos_DmSaveQoS(QoS_t *pQos) {
             cJSON_AddItemToObject(cl, DM_CLF_SourceMACAddress, cJSON_CreateString(pClf->SourceMACAddress));
             cJSON_AddItemToObject(cl, DM_CLF_DSCPMark, cJSON_CreateNumber(pClf->DSCPMark));
             cJSON_AddItemToObject(cl, DM_CLF_Alias, cJSON_CreateString(pClf->Alias));
-            cJSON_AddItemToObject(cl, DM_CLF_Duration, cJSON_CreateString(pClf->Duration));
+            cJSON_AddItemToObject(cl, DM_CLF_X_DT_Expiration, cJSON_CreateString(pClf->X_DT_Expiration));
             cJSON_AddItemToObject(cl, DM_CLF_Id, cJSON_CreateNumber(pClf->Id));
         }
     }
@@ -200,7 +200,7 @@ bool qos_DmSaveQoS(QoS_t *pQos) {
 
             cJSON_AddItemToObject(qu, DM_QUEUE_Enable, cJSON_CreateBool(pQueue->Enable));
             cJSON_AddItemToObject(qu, DM_QUEUE_Interface, cJSON_CreateString(pQueue->Interface));
-            cJSON_AddItemToObject(qu, DM_QUEUE_Bandwidth, cJSON_CreateNumber(pQueue->Bandwidth));
+            cJSON_AddItemToObject(qu, DM_QUEUE_X_DT_Bandwidth, cJSON_CreateNumber(pQueue->X_DT_Bandwidth));
             cJSON_AddItemToObject(qu, DM_QUEUE_Alias, cJSON_CreateString(pQueue->Alias));
         }
     }

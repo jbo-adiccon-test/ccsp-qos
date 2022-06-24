@@ -266,12 +266,14 @@ Classification_GetParamStringValue
     if (pDmClsEntry == NULL) {
         printf("%s: (Classification_t*)hInsContext == NULL\n", __func__);
         return -1;
-    } else if (
+    }
+// Add X_DT_Expiration Parameter
+    else if (
             AnscEqualString(pParamName,
-                            DM_CLF_Duration, TRUE)) {
-        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->Duration);
+                            DM_CLF_X_DT_Expiration, TRUE)) {
+        GET_STR_PRM_VALIDATE_INPUT_BUFF(pUlSize, pDmClsEntry->X_DT_Expiration);
         AnscCopyString(pValue, pDmClsEntry
-                ->Duration);
+                ->X_DT_Expiration);
     }
 //Add Alias Param out of TR-181
     else if (
@@ -525,15 +527,15 @@ Classification_SetParamStringValue
         return ret;
     } else if (
             AnscEqualString(pParamName,
-                            DM_CLF_Duration, TRUE)) {
+                            DM_CLF_X_DT_Expiration, TRUE)) {
         AnscCopyString(pDmClsEntry
-                               ->Duration, pString);
+                               ->X_DT_Expiration, pString);
         ret = TRUE;
     } else if (
             AnscEqualString(pParamName,
                             DM_CLF_Alias, TRUE)) {
         AnscCopyString(pDmClsEntry
-                               ->Alias, "ClassPrio");
+                               ->Alias, pString);
         ret = TRUE;
     } else if (
             AnscEqualString(pParamName,
@@ -1189,8 +1191,8 @@ Queue_GetParamUlongValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_QUEUE_Bandwidth, TRUE)) {
-        *puLong = pDmQueueEntry->Bandwidth;
+    if (AnscEqualString(pParamName, DM_QUEUE_X_DT_Bandwidth, TRUE)) {
+        *puLong = pDmQueueEntry->X_DT_Bandwidth;
         ret = TRUE;
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);
@@ -1432,8 +1434,8 @@ Queue_SetParamUlongValue
         return ret;
     }
 
-    if (AnscEqualString(pParamName, DM_QUEUE_Bandwidth, TRUE)) {
-        pDmQueueEntry->Bandwidth = uValue;
+    if (AnscEqualString(pParamName, DM_QUEUE_X_DT_Bandwidth, TRUE)) {
+        pDmQueueEntry->X_DT_Bandwidth = uValue;
         ret = TRUE;
     } else {
         printf("%s: Unsupported parameter '%s'\n", __func__, pParamName);

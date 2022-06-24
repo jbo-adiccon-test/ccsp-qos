@@ -2,6 +2,7 @@
  Application usage 
 -----------------------------------------------------------------
 
+** Special Branch for exercises
 * Run the ccsp qos binary:
 
   > ccsp_qos -subsys eRT.
